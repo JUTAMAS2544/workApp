@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import type { LoginType, UserType } from '~/types/user';
+import type { ChangePasswordType, LoginType, UserType } from '~/types/user';
 
 export const useUser = defineStore('user', () => {
   const authToken = ref('')
@@ -22,6 +22,14 @@ export const useUser = defineStore('user', () => {
     }
   }
 
+  async function changePassword(payload: ChangePasswordType) {
+    try {
+      const { data } = await axios.put(`${import.meta.env.VITE_API}/changePassword/`, payload)
+    } catch (err) {
+      alert("Unable to change password Please check the correctness of your email.")
+    }
+  }
+
   async function fetchAuth() {
     try {
       const token = localStorage.getItem('token');
@@ -31,7 +39,6 @@ export const useUser = defineStore('user', () => {
         }})
 
       userData.value = data
-      console.log("User data: ", data)
 
     } catch (err) {
       console.log(err)
@@ -50,5 +57,6 @@ export const useUser = defineStore('user', () => {
     fetchLogin,
     fetchAuth,
     logout,
+    changePassword,
   }
 });

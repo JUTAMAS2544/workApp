@@ -12,18 +12,6 @@ const user = useUser();
 
 const isLoading = ref(false)
 
-// const fetchUsers = async () => {
-//   try {
-//     isLoading.value = true
-//     const { data } = await axios.get(`${import.meta.env.VITE_API}/user/all/`)
-//     // users.value = data
-//     console.log(data)
-//     isLoading.value = false
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
   <v-app-bar fixed app color="#3F3C00" class="tw-py-1 tw-px-3 md:tw-py-4 md:tw-px-5">
     <template v-slot:prepend>
       <NuxtLink to="/" class="tw-mr-10 tw-hidden md:tw-block">
-        <img src="/public/Logo.png" alt="Logo" width="180">
+        <img src="/Logo.png" alt="Logo" width="180">
       </NuxtLink>
       <!-- Mobile -->
     <v-menu transition="scale-transition">

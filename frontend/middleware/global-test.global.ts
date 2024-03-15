@@ -15,16 +15,14 @@ export default defineNuxtRouteMiddleware(to => {
 
     if (to.path === "/") {
       menu.setPath(0);
-      console.log(to.path)
     } else if (to.path === "/Login") {
       menu.setPath(11);
     } else if (to.path === "/Assessment/Page-1") {
       menu.setPath(1);
-      console.log(to.path)
     }
 
     if (token && user.getUserData) {
-      console.log(to)
+      // console.log(to)
       // console.log(token)
       to.meta.requiresAuth = true;
     } else {

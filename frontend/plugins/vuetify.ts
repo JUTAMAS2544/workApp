@@ -10,13 +10,4 @@ export default defineNuxtPlugin((app) => {
   })
   app.vueApp.use(vuetify)
 
-
-  // Middleware
-  // addRouteMiddleware('global-test', () => {
-  //   console.log('this global middleware was added in TTTT')
-  // }, { global: true })
-
-  // addRouteMiddleware('demo-test', () => {
-  //   console.log('this TEST middleware was added in OOO')
-  // })
 })
