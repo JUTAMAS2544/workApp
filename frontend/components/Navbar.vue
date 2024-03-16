@@ -1,8 +1,8 @@
 <template>
-  <v-app-bar fixed app color="#3F3C00" class="tw-py-1 tw-px-3 md:tw-py-4 md:tw-px-5">
+  <v-app-bar fixed app color="#3F3C00" class="tw-py-1 tw-px-3 md:tw-px-5">
     <template v-slot:prepend>
       <NuxtLink to="/" class="tw-mr-10 tw-hidden md:tw-block">
-        <img src="/Logo.png" alt="Logo" width="180">
+        <img src="/Logo.png" alt="Logo" width="130">
       </NuxtLink>
       <!-- Mobile -->
     <v-menu transition="scale-transition">
@@ -28,13 +28,13 @@
     <!-- Desktop -->
     <div class="tw-hidden md:tw-block">
       <NuxtLink to="/Assessment/Page-1">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-xl" :class="menu.getPath === 1 ? 'tw-text-[#ffcd1a]': ''">Index Assessment</v-btn>
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="menu.getPath === 1 ? 'tw-text-[#ffcd1a]': ''">Index Assessment</v-btn>
       </NuxtLink>
       <NuxtLink to="/">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-xl">Plans & Pricing</v-btn>
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg">Plans & Pricing</v-btn>
       </NuxtLink>
       <NuxtLink to="/">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-xl">Contact us</v-btn>
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg">Contact us</v-btn>
       </NuxtLink>
     </div>
 
@@ -75,11 +75,10 @@ const text = computed(() => {
 })
 const handelLogout = () => {
   user.logout();
+  navigateTo('/')
 };
 </script>
 
 <style scoped>
-.text {
-  font-size: 20px;
-}
+
 </style>

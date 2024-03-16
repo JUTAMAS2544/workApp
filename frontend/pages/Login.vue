@@ -18,6 +18,7 @@
               <v-text-field
                 v-model="email.value.value"
                 type="email"
+                density="comfortable"
                 variant="outlined"
                 label="E-mail"
                 :error-messages="email.errorMessage.value"
@@ -26,6 +27,7 @@
                 class="tw-my-2"
                 v-model="password.value.value"
                 :type="!showPassword ? 'password' : 'text'"
+                density="comfortable"
                 variant="outlined"
                 label="Password"
                 :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
@@ -42,6 +44,7 @@
               <v-btn
                 rounded="xl"
                 color="primary"
+                size="large"
                 class="tw-w-full tw-mt-5"
                 type="submit"
               >
@@ -58,6 +61,7 @@
               <v-text-field
                 v-model="email.value.value"
                 type="email"
+                density="comfortable"
                 variant="outlined"
                 label="E-mail"
                 :error-messages="email.errorMessage.value"
@@ -66,6 +70,7 @@
                 class="tw-my-2"
                 v-model="password.value.value"
                 :type="!showNewPassword ? 'password' : 'text'"
+                density="comfortable"
                 variant="outlined"
                 label="Password"
                 :append-inner-icon="showNewPassword ? 'mdi-eye-off' : 'mdi-eye'"
@@ -76,6 +81,7 @@
                 class="tw-mb-2"
                 v-model="confirmPassword"
                 :type="!showConfirmPassword ? 'password' : 'text'"
+                density="comfortable"
                 variant="outlined"
                 label="Confirm Password"
                 :append-inner-icon="showConfirmPassword ? 'mdi-eye-off' : 'mdi-eye'"
@@ -83,19 +89,21 @@
                 :error-messages="confirmPasswordError"
               />
 
-              <div class="tw-flex tw-gap-x-4 tw-justify-center">
+              <div class="tw-grid tw-grid-cols-2 tw-gap-x-4 tw-justify-center">
                 <v-btn
                   rounded="xl"
-                  color="black"
-                  class="tw-mt-5 tw-w-28"
+                  color="#006A24"
+                  size="large"
+                  class="tw-mt-5 tw-w-full"
                   @click="goSwich"
                 >
                   Back
                 </v-btn>
                 <v-btn
                   rounded="xl"
-                  color="success"
-                  class="tw-mt-5 tw-w-28"
+                  color="#FFC700"
+                  size="large"
+                  class="tw-mt-5 tw-w-full tw-text-white"
                   @click="handleChangePassword"
                 >
                   Confirm
@@ -111,12 +119,14 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
+import { useValidate } from '~/stores/validate';
 
 definePageMeta({
   middleware: ["auth"],
 });
 
 const user = useUser();
+const validate = useValidate();
 const checkPassword = ref('')
 const showPassword = ref(false);
 const showNewPassword = ref(false);
@@ -127,14 +137,14 @@ const toggleResetPassword = ref(false);
 const { handleSubmit } = useForm({
   validationSchema: {
     email (value: string) {
-      if (!value) return 'ต้องกรอก'
-      if (/^[a-zA-Z0-9.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+      if (validate.isRequired(value)) return validate.isRequired(value)
+      if (validate.isEmail(value)) return validate.isEmail(value)
 
-      return 'โปรดตรวจสอบความถูกต้องของอีเมล'
+      return true
     },
     password (value: string) {
-      if (!value) return 'ต้องกรอก'
-      if (value.length < 8) return 'ต้องมีอย่างน้อย 8 ตัวอักษร'
+      if (validate.isRequired(value)) return validate.isRequired(value)
+      if (validate.isPassword(value)) return validate.isPassword(value)
       return true
     },
   },

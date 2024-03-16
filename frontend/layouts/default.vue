@@ -1,7 +1,7 @@
 <template>
   <v-app class="font-custom">
     <Navbar />
-    <v-main class="md:tw-mt-8">
+    <v-main>
         <NuxtPage />
     </v-main>
     <FooterBar />

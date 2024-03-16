@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import type { ChangePasswordType, LoginType, UserType } from '~/types/user';
+import type { ChangePasswordType, LoginType, RegisterType, UserType } from '~/types/user';
 
 export const useUser = defineStore('user', () => {
   const authToken = ref('')
   const userData = ref<UserType | null>()
+  const register = ref<RegisterType>()
 
   const getAuthToken = computed(() => authToken.value)
   const getUserData = computed(() => userData.value)
+  const getRegister = computed(() => register.value)
 
   async function fetchLogin(payload: LoginType) {
     try {
@@ -45,6 +47,17 @@ export const useUser = defineStore('user', () => {
     }
   }
 
+  async function fetchRegister(payload: RegisterType) {
+    try {
+      const { data } = await axios.post(`${import.meta.env.VITE_API}/register/`, payload)
+
+    } catch (err) {
+      alert("Register Failed.")
+      console.log(err)
+    }
+  }
+
+
   function logout() {
     localStorage.removeItem("token")
     authToken.value = ""
@@ -54,9 +67,11 @@ export const useUser = defineStore('user', () => {
   return {
     getAuthToken,
     getUserData,
+    getRegister,
     fetchLogin,
     fetchAuth,
     logout,
     changePassword,
+    fetchRegister,
   }
 });
