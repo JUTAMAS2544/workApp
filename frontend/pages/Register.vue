@@ -20,7 +20,7 @@
                 <v-divider :thickness="2" class="tw-opacity-100"></v-divider>
 
                 <div
-                  class="tw-grid tw-grid-cols-3 tw-gap-x-5 tw-justify-center tw-mt-10"
+                  class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-x-5 tw-justify-center tw-mt-10"
                 >
                   <v-select
                     v-model="sex.value.value"
@@ -48,7 +48,7 @@
                   ></v-select>
                 </div>
                 <div
-                  class="tw-grid tw-grid-cols-2 tw-gap-x-5 tw-justify-center tw-mt-2"
+                  class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-x-5 tw-justify-center tw-mt-2"
                 >
                   <v-select
                     v-model="education_level.value.value"

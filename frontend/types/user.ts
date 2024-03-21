@@ -48,3 +48,8 @@ export interface ChangePasswordType {
   email: string
   newPassword: string
 }
+
+export interface ResponseType {
+  status: string;
+  message: string;
+}

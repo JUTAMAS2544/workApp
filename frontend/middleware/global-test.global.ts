@@ -11,24 +11,29 @@ export default defineNuxtRouteMiddleware(to => {
   }
 
   if (process.client) {
-    const token = localStorage.getItem('token');
-
     if (to.path === "/") {
+      user.fetchAuth()
       menu.setPath(0);
-    } else if (to.path === "/Login") {
+    }else if (to.path === "/Login") {
       menu.setPath(11);
-    } else if (to.path === "/Assessment/Page-1") {
+    }else if (to.path === "/Assessment/PageStart" || to.path === "/Assessment/Page-1") {
       menu.setPath(1);
+      console.log("Tal 1", menu.getPath)
     }
 
-    if (token && user.getUserData) {
-      // console.log(to)
-      // console.log(token)
+    const token = localStorage.getItem('token');
+    if (token) {
+      // console.log("Naja 1")
       to.meta.requiresAuth = true;
     } else {
       to.meta.requiresAuth = false;
       localStorage.removeItem('token');
+      // console.log("Naja 3")
     }
+
+
+    // console.log("Naja", to.meta.requiresAuth)
+
      //this section will run in the browser so you can access
      // local storage
   }

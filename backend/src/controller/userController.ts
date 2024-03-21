@@ -18,18 +18,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-// export const getSingleUser = async (req: Request, res: Response) => {
-//   try {
-//     const userRepository = await myDataSource.getRepository(User)
-//     const userSingle = await userRepository.findOne({ where: { id: Number(req.params.id)}});
-
-//     userSingle && res.send(userSingle);
-//   } catch (err) {
-//     console.log(err);
-//     res.send("Server error");
-//   }
-// }
-
 export const getSingleUser = async (req: Request, res: Response) => {
   try {
     if (req.headers.authorization) {
@@ -40,10 +28,11 @@ export const getSingleUser = async (req: Request, res: Response) => {
         const userSingle = await userRepository.findOne({ where: { email: decoded.email.toString()}});
         res.send(userSingle);
       } else {
-        throw new Error('Invalid token');
+        res.send({ status:"error", message: "Invalid token" });
+        // throw new Error('Invalid token');
       }
     } else {
-      res.status(404).send({ message: "Not Found" });
+      res.send({ status:"error", message: "Not Found" });
     }
   } catch (err) {
     res.status(404).send({ message: err });
@@ -55,7 +44,7 @@ export const register = async (req: Request, res: Response) => {
     const userRepository = await myDataSource.getRepository(User)
     const checkUser = await userRepository.findOne({ where: { email: req.body.email }});
 
-    if (checkUser) return res.status(404).send({ message: "Has User" });
+    if (checkUser) return res.send({ status:"error", message: "Email นี้มีผู้ใช้แล้ว" });
 
     bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
       req.body.password = hash
@@ -66,8 +55,7 @@ export const register = async (req: Request, res: Response) => {
     });
 
   } catch (err) {
-    console.log(err);
-    res.send("Server error");
+    res.status(404).send("Register Failed");
   }
 }
 
@@ -76,20 +64,20 @@ export const login = async (req: Request, res: Response) => {
     const userRepository = await myDataSource.getRepository(User)
     const checkUser = await userRepository.findOne({ where: { email: req.body.email }});
 
-    if (!checkUser) return res.status(404).send({status:"error", message: "Not Found" });
+    if (!checkUser) return res.send({status:"error", message: "ไม่พบ Email ผู้ใช้" });
 
     bcrypt.compare(req.body.password, checkUser.password, async (err, result) => {
       if (result) {
         var token = jwt.sign({ email: checkUser.email }, secretKey, { expiresIn: '2h' });
-        res.send({ token });
+        res.send({ status:"ok", message: token });
       } else {
-        res.status(404).send({ message: "Login Failed" });
+        res.send({ status:"error", message: "รหัสผ่านไม่ถูกต้อง" });
       }
     });
 
   } catch (err) {
     console.log(err);
-    res.send("Server error");
+    res.status(404).send("Login Failed");
   }
 }
 
@@ -97,7 +85,7 @@ export const changePassword = async (req: Request, res: Response) => {
   try {
     const userRepository = await myDataSource.getRepository(User)
     const checkUser = await userRepository.findOne({ where: { email: req.body.email }});
-    if (!checkUser) return res.status(404).send({ message: "No User" });
+    if (!checkUser) return res.send({ status:"error", message: "ไม่พบ Email ผู้ใช้" });
 
     bcrypt.hash(req.body.newPassword, saltRounds, async (err, hash) => {
       req.body.newPassword = hash
@@ -107,33 +95,15 @@ export const changePassword = async (req: Request, res: Response) => {
         .set({ password: req.body.newPassword })
         .where("email = email", { email: req.body.email })
         .execute();
-      if (updatePassword) return res.send({ message: "Change Password Success" })
-      else return res.status(404).send({ message: "Not Change Password" })
+      if (updatePassword) return res.send({ status:"ok", message: "เปลี่ยนรหัสผ่านสำเร็จแล้ว" })
+      else return res.send({ status:"error", message: "ไม่สามารถเปลี่ยนรหัสผ่านได้" })
     });
 
   } catch (err) {
     console.log(err);
-    res.send("Server error");
+    res.status(404).send("Change Password Failed");
   }
 }
-
-
-// bcrypt.compare(req.body.password, checkUser.password, async (err, result) => {
-    //   if (result) {
-    //     bcrypt.hash(req.body.newPassword, saltRounds, async (err, hash) => {
-    //       req.body.newPassword = hash
-    //       const updatePassword = await userRepository
-    //         .createQueryBuilder()
-    //         .update(user)
-    //         .set({ password: req.body.newPassword })
-    //         .where("id = :id", { id: req.params.id })
-    //         .execute();
-    //       if (updatePassword) return res.send("เปลี่ยนรหัสผ่านสำเร็จ")
-    //     });
-    //   } else {
-    //     return res.send("รหัสผ่านไม่ถูกต้อง")
-    //   }
-    // });
 
 
 // export const updateUser = async (req: Request, res: Response) => {

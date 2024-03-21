@@ -1,34 +1,45 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import type { ChangePasswordType, LoginType, RegisterType, UserType } from '~/types/user';
+import type { ChangePasswordType, LoginType, RegisterType, UserType, ResponseType } from '~/types/user';
 
 export const useUser = defineStore('user', () => {
   const authToken = ref('')
   const userData = ref<UserType | null>()
   const register = ref<RegisterType>()
+  const checkChangePassword = ref<ResponseType>()
 
   const getAuthToken = computed(() => authToken.value)
   const getUserData = computed(() => userData.value)
   const getRegister = computed(() => register.value)
+  const getCheckChangePassword = computed(() => checkChangePassword.value)
 
   async function fetchLogin(payload: LoginType) {
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API}/login/`, payload)
+      const { data } = await axios.post<ResponseType>(`${import.meta.env.VITE_API}/login/`, payload)
 
-      authToken.value = data.token
-      localStorage.setItem("token", authToken.value)
+      if (data.status === 'ok') {
+        authToken.value = data.message
+        localStorage.setItem("token", data.message)
+      } else {
+        alert(data.message)
+      }
 
     } catch (err) {
-      alert("Login Failed, Please check the correctness of your email and password.")
-      // console.log(err)
+      // alert("Login Failed, Please check the correctness of your email and password.")
+      console.log("error", err)
     }
   }
 
   async function changePassword(payload: ChangePasswordType) {
     try {
-      const { data } = await axios.put(`${import.meta.env.VITE_API}/changePassword/`, payload)
+      const { data } = await axios.put<ResponseType>(`${import.meta.env.VITE_API}/changePassword/`, payload)
+      checkChangePassword.value = data
+      if (data.status === 'error') {
+        alert(data.message)
+      }
     } catch (err) {
-      alert("Unable to change password Please check the correctness of your email.")
+      // alert("Unable to change password Please check the correctness of your email.")
+      console.log("error", err)
     }
   }
 
@@ -49,11 +60,12 @@ export const useUser = defineStore('user', () => {
 
   async function fetchRegister(payload: RegisterType) {
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API}/register/`, payload)
+      const { data } = await axios.post<ResponseType>(`${import.meta.env.VITE_API}/register/`, payload)
+
+      console.log("register: ", data)
 
     } catch (err) {
       alert("Register Failed.")
-      console.log(err)
     }
   }
 
@@ -68,6 +80,7 @@ export const useUser = defineStore('user', () => {
     getAuthToken,
     getUserData,
     getRegister,
+    getCheckChangePassword,
     fetchLogin,
     fetchAuth,
     logout,

@@ -12,7 +12,7 @@ export const getScoreList = async (req: Request, res: Response) => {
     const scoreRepository = await myDataSource.getRepository(Score)
     const scores = await scoreRepository.findOne({ where: { userId: Number(req.params.id)}});
 
-    if (!scores) res.status(404).send({ message: "Score not found"});
+    if (!scores) res.send();
     scores && res.send(scores);
   } catch (err) {
     console.log(err);
@@ -25,7 +25,7 @@ export const getSummary = async (req: Request, res: Response) => {
     const summaryRepository = await myDataSource.getRepository(Summary)
     const summary = await summaryRepository.findOne({ where: { userId: Number(req.params.id)}});
 
-    if (!summary) res.status(404).send({ message: "Summary not found"});
+    if (!summary) res.send([]);
     summary && res.send(summary);
   } catch (err) {
     console.log(err);
@@ -38,6 +38,8 @@ export const createScore = async (req: Request, res: Response) => {
     const scoreRepository = await myDataSource.getRepository(Score)
     const summaryRepository = await myDataSource.getRepository(Summary)
     const checkScore = await scoreRepository.findOne({ where: { userId: Number(req.params.id)}});
+
+    console.log(checkScore)
 
     if (checkScore) {
       const updateScore = await scoreRepository
@@ -104,13 +106,13 @@ export const createScore = async (req: Request, res: Response) => {
           .where("userId = userId", {userId: Number(req.params.id)})
           .execute();
         if (updateSummary) {
-          res.send({ message: "Change Score Success" })
+          res.send({ status: "error", message: "Change Score Success" })
         } else {
-          res.status(404).send({ message: "Change Summary Failed" })
+          res.status(404).send({ status: "error", message: "Change Summary Failed" })
         }
       }
       else {
-        res.status(404).send({ message: "Change Score Failed" })
+        res.status(404).send({ status: "error", message: "Change Score Failed" })
       }
 
     } else {
@@ -140,7 +142,7 @@ export const createScore = async (req: Request, res: Response) => {
         })
 
         const summaryAns = await summaryRepository.save(newSummary)
-        summaryAns && res.send({ status: "ok", message: "Send Score Success"});
+        summaryAns && res.send({ status: "ok", message: "Send Summary Success"});
        }
 
       // result && res.send({ status: "ok", message: "Send Score Success"});

@@ -27,7 +27,8 @@
 
     <!-- Desktop -->
     <div class="tw-hidden md:tw-block">
-      <NuxtLink to="/Assessment/Page-1">
+      {{ menu.getPath }}
+      <NuxtLink to="/Assessment/PageStart">
         <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="menu.getPath === 1 ? 'tw-text-[#ffcd1a]': ''">Index Assessment</v-btn>
       </NuxtLink>
       <NuxtLink to="/">
@@ -54,7 +55,7 @@ const menu = useActive();
 
 const menus = [
   { title: 'Home', path: '/' },
-  { title: 'Index Assessment', path: '/Assessment/Page-1' },
+  { title: 'Index Assessment', path: '/Assessment/PageStart' },
   { title: 'Plans & Pricing', path: '/' },
   { title: 'Contact us', path: '/' },
 ]

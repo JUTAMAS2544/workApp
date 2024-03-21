@@ -1,16 +1,17 @@
 <template>
-  <v-container>
+  <v-container class="tw-flex tw-justify-center tw-items-center tw-h-full">
     <NuxtLink to="/Login">
       <v-btn color="primary" v-if="!user.getUserData">Login</v-btn>
     </NuxtLink>
-    {{ user.getUserData }}
+    <div>
+      {{ user.getUserData }}
+    </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
 const user = useUser();
 
-const isLoading = ref(false)
 
 </script>
 

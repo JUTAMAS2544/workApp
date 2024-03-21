@@ -1,7 +1,8 @@
 <template>
-  <div class="tw-bg-[url('/bg-login.png')] tw-bg-cover tw-bg-center  tw-h-full">
+  <Loading :loading="isLoading" />
+  <div class="tw-bg-[url('/bg-login.png')] tw-bg-cover tw-bg-center tw-h-full">
     <v-container class="tw-flex tw-justify-center tw-items-center tw-h-full">
-      <v-card class="tw-py-3 md:tw-py-6 md:tw-px-10 tw-rounded-3xl" max-width="565">
+      <v-card class="tw-py-5 tw-px-5 md:tw-py-6 md:tw-px-10 tw-rounded-3xl" max-width="565">
         <v-card-item>
           <v-card-title v-if="!toggleResetPassword" class="tw-text-center tw-text-xl md:tw-text-2xl tw-font-semibold">
             Login to your account
@@ -56,7 +57,7 @@
               </p>
             </template>
 
-            <!-- Register -->
+            <!-- Change Password -->
             <template v-else>
               <v-text-field
                 v-model="email.value.value"
@@ -127,6 +128,7 @@ definePageMeta({
 
 const user = useUser();
 const validate = useValidate();
+const isLoading = ref(false)
 const checkPassword = ref('')
 const showPassword = ref(false);
 const showNewPassword = ref(false);
@@ -158,11 +160,13 @@ const confirmPasswordError = ref('')
 const onSubmit = handleSubmit(async values => {
   const params = { email: values.email, password: values.password };
 
+  isLoading.value = true;
   await user.fetchLogin(params);
   await user.fetchAuth();
+  isLoading.value = false;
 
   if (user.getAuthToken) {
-    navigateTo("/Assessment/Page-1");
+    navigateTo("/Assessment/PageStart");
   }
 })
 const handleChangePassword = handleSubmit(async values => {
@@ -171,11 +175,18 @@ const handleChangePassword = handleSubmit(async values => {
 
   const params = { email: values.email, newPassword: values.password };
 
+  isLoading.value = true;
   await user.changePassword(params);
-  email.value.value = ''
-  password.value.value = ''
-  confirmPassword.value = ''
-  toggleResetPassword.value = false;
+  if (user.getCheckChangePassword?.status === 'error') {
+    toggleResetPassword.value = true;
+  } else {
+    toggleResetPassword.value = false;
+    email.value.value = ''
+    password.value.value = ''
+    confirmPassword.value = ''
+  }
+
+  isLoading.value = false;
 
 })
 const goSwich = () => {
@@ -200,6 +211,13 @@ watchEffect(() => {
     confirmPasswordError.value = 'รหัสผ่านไม่ถูกต้อง'
   } else {
     confirmPasswordError.value = ''
+  }
+})
+
+watchEffect(()=> {
+  if (user.getUserData) {
+    // console.log("token Login")
+    navigateTo("/Assessment/PageStart");
   }
 })
 </script>

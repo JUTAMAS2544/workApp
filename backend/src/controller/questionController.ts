@@ -7,7 +7,7 @@ export const getQuestionsTC = async (req: Request, res: Response) => {
   try {
     const questionRepository = await myDataSource.getRepository(TC)
     const questions = await questionRepository.find();
-    questions && res.send(questions);
+    questions && res.send(questions[0]);
   } catch (err) {
     console.log(err);
     res.send("Server error");
@@ -18,7 +18,7 @@ export const getQuestionsSP = async (req: Request, res: Response) => {
   try {
     const questionRepository = await myDataSource.getRepository(SP)
     const questions = await questionRepository.find();
-    questions && res.send(questions);
+    questions && res.send(questions[0]);
   } catch (err) {
     console.log(err);
     res.send("Server error");
@@ -29,7 +29,7 @@ export const getQuestionsIT = async (req: Request, res: Response) => {
   try {
     const questionRepository = await myDataSource.getRepository(IT)
     const questions = await questionRepository.find();
-    questions && res.send(questions);
+    questions && res.send(questions[0]);
   } catch (err) {
     console.log(err);
     res.send("Server error");
@@ -40,7 +40,7 @@ export const getQuestionsEC = async (req: Request, res: Response) => {
   try {
     const questionRepository = await myDataSource.getRepository(EC)
     const questions = await questionRepository.find();
-    questions && res.send(questions);
+    questions && res.send(questions[0]);
   } catch (err) {
     console.log(err);
     res.send("Server error");
