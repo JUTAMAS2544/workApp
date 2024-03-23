@@ -6,7 +6,7 @@
 
       <div class="tw-grid tw-gap-x-16" :class="!score.getScore ? '':'tw-grid-cols-2'">
         <v-btn rounded="xl" size="x-large" color="#5BCE00" class="tw-text-white" block @click="goToAssessment">Start</v-btn>
-        <v-btn v-if="score.getScore" rounded="xl" size="x-large" color="#00ABF5" block>View</v-btn>
+        <v-btn v-if="score.getScore" rounded="xl" size="x-large" color="#00ABF5" block @click="goToSummary">View</v-btn>
       </div>
     </div>
   </v-container>
@@ -20,14 +20,20 @@ definePageMeta({
 })
 const user = useUser();
 const score = useScore();
+const active = useActive()
 
 const goToAssessment = () => {
+  active.setCheckPage(true);
   navigateTo('/Assessment/Page-1')
+}
+const goToSummary = () => {
+  navigateTo('/Assessment/Summary')
 }
 
 onMounted(async () => {
   if (user.getUserData) {
     // console.log("id:", user.getUserData.id)
+    await score.setUserID(user.getUserData.id)
     await score.fetchScore(user.getUserData.id)
   }
 })

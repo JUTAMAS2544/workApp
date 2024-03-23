@@ -53,3 +53,10 @@ export interface ResponseType {
   status: string;
   message: string;
 }
+
+export interface IndexType {
+  titleTH: string;
+  titleEN: string;
+  image:   string;
+  detail:  string;
+}

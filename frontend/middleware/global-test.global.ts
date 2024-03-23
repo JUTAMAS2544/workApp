@@ -1,7 +1,7 @@
 import { useActive } from "~/stores/active.store";
 import { useUser } from "~/stores/user.store";
 
-export default defineNuxtRouteMiddleware(to => {
+export default defineNuxtRouteMiddleware((to, from) => {
   const user = useUser();
   const menu = useActive();
 
@@ -11,20 +11,38 @@ export default defineNuxtRouteMiddleware(to => {
   }
 
   if (process.client) {
+    if (menu.getCheckPage && to.path !== '/Assessment/Page-1'){
+      if (to.path === '/Assessment/Summary') {
+        menu.setCheckPage(false);
+        menu.setShowChangePage(false);
+        console.log("Oiiii")
+      } else {
+        menu.setShowChangePage(true);
+        menu.setKeepPage(to.path)
+        console.log("Hiiiii")
+        return abortNavigation();
+      }
+    }
+
     if (to.path === "/") {
       user.fetchAuth()
       menu.setPath(0);
     }else if (to.path === "/Login") {
       menu.setPath(11);
-    }else if (to.path === "/Assessment/PageStart" || to.path === "/Assessment/Page-1") {
+    }else if (to.path === "/Assessment/PageStart" || to.path === "/Assessment/Page-1" || to.path === "/Assessment/Summary") {
       menu.setPath(1);
-      console.log("Tal 1", menu.getPath)
+      user.fetchAuth()
+      // console.log("Tal 1", menu.getPath)
     }
 
     const token = localStorage.getItem('token');
     if (token) {
       // console.log("Naja 1")
       to.meta.requiresAuth = true;
+      if (!user.getUserData) {
+        to.meta.requiresAuth = false;
+        // console.log("Naja 2")
+      }
     } else {
       to.meta.requiresAuth = false;
       localStorage.removeItem('token');

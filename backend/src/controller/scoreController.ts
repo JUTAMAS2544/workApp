@@ -39,7 +39,7 @@ export const createScore = async (req: Request, res: Response) => {
     const summaryRepository = await myDataSource.getRepository(Summary)
     const checkScore = await scoreRepository.findOne({ where: { userId: Number(req.params.id)}});
 
-    console.log(checkScore)
+    console.log("Score: ", checkScore)
 
     if (checkScore) {
       const updateScore = await scoreRepository
@@ -77,7 +77,7 @@ export const createScore = async (req: Request, res: Response) => {
           ans29_ec: req.body.ans29_ec,
           ans30_ec: req.body.ans30_ec
         })
-        .where("userId = userId", { userId: Number(req.params.id) })
+        .where("userId = :userId", { userId: Number(req.params.id) })
         .execute();
 
       if (updateScore) {
@@ -103,10 +103,10 @@ export const createScore = async (req: Request, res: Response) => {
             ec_4: summaryEC[3],
             score: calScore([summaryTC[4], summaryTC[5], summarySP[1], summarySP[2], summaryIT[3], summaryIT[4], summaryEC[4], summaryEC[5]])
           })
-          .where("userId = userId", {userId: Number(req.params.id)})
+          .where("userId = :userId", {userId: Number(req.params.id)})
           .execute();
         if (updateSummary) {
-          res.send({ status: "error", message: "Change Score Success" })
+          res.send({ status: "ok", message: "Change Score Success" })
         } else {
           res.status(404).send({ status: "error", message: "Change Summary Failed" })
         }
