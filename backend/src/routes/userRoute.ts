@@ -29,7 +29,6 @@ import {
 
 import {
   getSuggesstion,
-  postSuggesstion
 } from "../controller/suggessionController"
 
 router.get("/user/all", getAllUsers);
@@ -52,7 +51,6 @@ router.get("/question/ec", getQuestionsEC);
 router.post("/question/ec", postQuestionsEC);
 
 router.get("/suggesstion/:id", getSuggesstion);
-router.post("/suggesstion/", postSuggesstion);
 
 
 export default router;

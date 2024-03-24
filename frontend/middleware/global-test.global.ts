@@ -15,24 +15,25 @@ export default defineNuxtRouteMiddleware((to, from) => {
       if (to.path === '/Assessment/Summary') {
         menu.setCheckPage(false);
         menu.setShowChangePage(false);
-        console.log("Oiiii")
       } else {
         menu.setShowChangePage(true);
         menu.setKeepPage(to.path)
-        console.log("Hiiiii")
         return abortNavigation();
       }
     }
 
-    if (to.path === "/") {
-      user.fetchAuth()
-      menu.setPath(0);
-    }else if (to.path === "/Login") {
+    if (to.path === "/Login") {
       menu.setPath(11);
-    }else if (to.path === "/Assessment/PageStart" || to.path === "/Assessment/Page-1" || to.path === "/Assessment/Summary") {
+    }else if (to.path === "/Assessment/PageStart" || to.path === "/Assessment/Page-1" || to.path === "/Assessment/Summary" || to.path === "/Assessment/Suggession") {
       menu.setPath(1);
       user.fetchAuth()
-      // console.log("Tal 1", menu.getPath)
+    } else if (to.path === "/Pricing") {
+      menu.setPath(2);
+    } else if (to.path === "/Contact") {
+      menu.setPath(3);
+    } else {
+      user.fetchAuth()
+      menu.setPath(0);
     }
 
     const token = localStorage.getItem('token');

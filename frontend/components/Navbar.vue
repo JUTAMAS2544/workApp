@@ -31,8 +31,8 @@
       <NuxtLink to="/Assessment/PageStart">
         <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="menu.getPath === 1 ? 'tw-text-[#ffcd1a]': ''">Index Assessment</v-btn>
       </NuxtLink>
-      <NuxtLink to="/">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg">Plans & Pricing</v-btn>
+      <NuxtLink to="/Pricing">
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="menu.getPath === 2 ? 'tw-text-[#ffcd1a]': ''">Plans & Pricing</v-btn>
       </NuxtLink>
       <NuxtLink to="/">
         <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg">Contact us</v-btn>
@@ -56,7 +56,7 @@ const menu = useActive();
 const menus = [
   { title: 'Home', path: '/' },
   { title: 'Index Assessment', path: '/Assessment/PageStart' },
-  { title: 'Plans & Pricing', path: '/' },
+  { title: 'Plans & Pricing', path: '/Pricing' },
   { title: 'Contact us', path: '/' },
 ]
 

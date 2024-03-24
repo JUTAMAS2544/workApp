@@ -51,6 +51,24 @@ export interface SummaryType {
   score:  number;
 }
 
+export interface SuggesstionType {
+  suggesstions: Suggesstion[];
+  tc:           number;
+  sp:           number;
+  it:           number;
+  ec:           number;
+  score:        number;
+}
+
+export interface Suggesstion {
+  id:       number;
+  topic:    string;
+  topic_th: string;
+  lower:    number;
+  upper:    number;
+  content:  string;
+}
+
 export interface ScoreTC {
   question_1: number;
   question_2: number;
@@ -125,4 +143,11 @@ export interface ScoreSendType {
   ans28_ec:  number;
   ans29_ec:  number;
   ans30_ec:  number;
+}
+
+export interface ScoreDataType {
+  id:     number;
+  nameTH: string;
+  nameEN: string;
+  value:  number;
 }

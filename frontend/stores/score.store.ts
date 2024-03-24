@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import type { ScoreEC, ScoreIT, ScoreSP, ScoreTC, ScoreType, ScoreSendType } from '~/types/score';
+import type { ScoreEC, ScoreIT, ScoreSP, ScoreTC, ScoreType, ScoreSendType, SummaryType, SuggesstionType } from '~/types/score';
 import type { ResponseType } from '~/types/user';
 
 export const useScore = defineStore('score', () => {
@@ -15,6 +15,8 @@ export const useScore = defineStore('score', () => {
   const checkScoreIT = ref(false)
   const checkScoreEC = ref(false)
   const postScore = ref<ResponseType>()
+  const summary = ref<SummaryType>()
+  const suggession = ref<SuggesstionType>()
 
   const getUserID = computed(() => userID.value)
   const getScore = computed(() => score.value)
@@ -27,6 +29,8 @@ export const useScore = defineStore('score', () => {
   const getCheckScoreIT = computed(() => checkScoreIT.value)
   const getCheckScoreEC = computed(() => checkScoreEC.value)
   const getPostScore = computed(() => postScore.value)
+  const getSummary = computed(() => summary.value)
+  const getSuggession = computed(() => suggession.value)
 
   const setUserID = (id: number) => {
     userID.value = id
@@ -114,6 +118,24 @@ export const useScore = defineStore('score', () => {
     }
   }
 
+  const fetchSummary = async (userId: number) => {
+    try {
+      const { data } = await axios.get<SummaryType>(`${import.meta.env.VITE_API}/summary/${userId}`)
+      summary.value = data
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const fetchSuggession = async (userId: number) => {
+    try {
+      const { data } = await axios.get<SuggesstionType>(`${import.meta.env.VITE_API}/suggesstion/${userId}`)
+      suggession.value = data
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
   return {
     getUserID,
     getScore,
@@ -126,6 +148,8 @@ export const useScore = defineStore('score', () => {
     getCheckScoreIT,
     getCheckScoreEC,
     getPostScore,
+    getSummary,
+    getSuggession,
     setUserID,
     setScoreTC,
     setScoreSP,
@@ -133,5 +157,7 @@ export const useScore = defineStore('score', () => {
     setScoreEC,
     fetchScore,
     sendScore,
+    fetchSummary,
+    fetchSuggession,
   }
 });

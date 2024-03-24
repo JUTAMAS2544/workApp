@@ -8,13 +8,16 @@ export class Suggesstion {
     @Column({ nullable: false })
     topic!: string
 
-    @Column({ nullable: false})
+    @Column({ nullable: false })
+    topic_th!: string
+
+    @Column({ nullable: false })
     lower!: number
 
-    @Column({ nullable: false})
+    @Column({ nullable: false })
     upper!: number
 
-    @Column({ nullable: false})
+    @Column({ nullable: false, type: "longtext" })
     content!: string
 
 }
