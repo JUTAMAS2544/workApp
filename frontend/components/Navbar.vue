@@ -5,7 +5,7 @@
         <img src="/Logo.png" alt="Logo" width="130">
       </NuxtLink>
       <!-- Mobile -->
-    <v-menu transition="scale-transition">
+    <v-menu transition="slide-y-transition">
       <template v-slot:activator="{ props }">
           <v-app-bar-nav-icon size="x-large" density="comfortable" class="md:tw-hidden" v-bind="props"></v-app-bar-nav-icon>
       </template>
@@ -27,12 +27,12 @@
 
     <!-- Desktop -->
     <div class="tw-hidden md:tw-block">
-      {{ menu.getPath }}
+      {{ menu.getPath }} {{ activeMenu }}
       <NuxtLink to="/Assessment/PageStart">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="menu.getPath === 1 ? 'tw-text-[#ffcd1a]': ''">Index Assessment</v-btn>
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="activeMenu === 1 ? 'tw-text-[#ffcd1a]': ''">Index Assessment</v-btn>
       </NuxtLink>
       <NuxtLink to="/Pricing">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="menu.getPath === 2 ? 'tw-text-[#ffcd1a]': ''">Plans & Pricing</v-btn>
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="activeMenu === 2 ? 'tw-text-[#ffcd1a]': ''">Plans & Pricing</v-btn>
       </NuxtLink>
       <NuxtLink to="/">
         <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg">Contact us</v-btn>
@@ -73,6 +73,10 @@ const text = computed(() => {
     default:
       return 'Login';
   }
+})
+const activeMenu = computed(() => {
+  if (menu.getPath) return menu.getPath;
+  return 0;
 })
 const handelLogout = () => {
   user.logout();

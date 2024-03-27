@@ -23,12 +23,12 @@
           </p>
         </div>
       </div>
-      <div class="tw-border-b-2 tw-p-3 tw-text-xs md:tw-p-6 tw-bg-[#FFFCDE]">
+      <div class="tw-border-b-2 tw-p-3 tw-text-xs md:tw-text-base md:tw-px-6 md:tw-py-4 tw-bg-[#FFFCDE]">
         {{ i.content }}
       </div>
     </template>
-    <div class="tw-text-center tw-mt-10">
-      <v-btn rounded="xl" size="large" color="#00ABF5" class="tw-text-white" @click="goToPlans">คลิกเพื่อรับคำปรึกษาเชิงลึก</v-btn>
+    <div class="tw-text-center tw-my-10">
+      <v-btn rounded="xl" size="x-large" color="#00ABF5" class="tw-text-white" @click="goToPlans">คลิกเพื่อรับคำปรึกษาเชิงลึก</v-btn>
     </div>
   </div>
 </template>

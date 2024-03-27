@@ -7,6 +7,7 @@ import {
   getSingleUser,
   register,
   login,
+  logout,
   changePassword
 } from "../controller/userController"
 
@@ -17,40 +18,30 @@ import {
 } from "../controller/scoreController"
 
 import {
-  getQuestionsTC,
-  getQuestionsSP,
-  getQuestionsIT,
-  getQuestionsEC,
-  postQuestionsTC,
-  postQuestionsSP,
-  postQuestionsIT,
-  postQuestionsEC
+  getQuestions
 } from "../controller/questionController"
 
 import {
   getSuggesstion,
 } from "../controller/suggessionController"
+import { isLoggedIn } from "../middlewares";
 
 router.get("/user/all", getAllUsers);
-router.get("/user", getSingleUser);
+router.get("/user", isLoggedIn, getSingleUser);
 router.post("/register", register);
 router.post("/login", login)
+router.post("/logout", isLoggedIn, logout)
 router.put("/changePassword", changePassword);
 
-router.get("/score/:id", getScoreList);
-router.get("/summary/:id", getSummary);
-router.put("/score/update/:id", createScore);
+// router.get("/score/:id", isLoggedIn, getScoreList);
+router.get("/score", isLoggedIn, getScoreList);
+router.get("/summary", isLoggedIn, getSummary);
+// router.put("/score/update/:id", isLoggedIn, createScore);
+router.put("/score/update", isLoggedIn, createScore);
 
-router.get("/question/tc", getQuestionsTC);
-router.post("/question/tc", postQuestionsTC);
-router.get("/question/sp", getQuestionsSP);
-router.post("/question/sp", postQuestionsSP);
-router.get("/question/it", getQuestionsIT);
-router.post("/question/it", postQuestionsIT);
-router.get("/question/ec", getQuestionsEC);
-router.post("/question/ec", postQuestionsEC);
+router.get("/suggesstion", isLoggedIn, getSuggesstion);
 
-router.get("/suggesstion/:id", getSuggesstion);
+router.get("/question", getQuestions);
 
 
 export default router;

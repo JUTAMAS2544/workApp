@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { myDataSource } from "../../app-data-source";
-import { User } from "../entitys/userEntity";
+import { Token, User } from "../entitys/userEntity";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
@@ -18,25 +18,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getSingleUser = async (req: Request, res: Response) => {
-  try {
-    if (req.headers.authorization) {
-      const token = req.headers.authorization.split(" ")[1]
-      const decoded = jwt.verify(token, secretKey) as JwtPayload;
-      if (decoded && typeof decoded === 'object' && 'email' in decoded) {
-        const userRepository = await myDataSource.getRepository(User)
-        const userSingle = await userRepository.findOne({ where: { email: decoded.email.toString()}});
-        res.send(userSingle);
-      } else {
-        res.send({ status:"error", message: "Invalid token" });
-        // throw new Error('Invalid token');
-      }
-    } else {
-      res.send({ status:"error", message: "Not Found" });
-    }
-  } catch (err) {
-    res.status(404).send({ message: err });
-  }
+export const getSingleUser = (req: Request, res: Response) => {
+  res.send(req.userSingle);
 }
 
 export const register = async (req: Request, res: Response) => {
@@ -62,14 +45,34 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const userRepository = await myDataSource.getRepository(User)
+    const tokenRepository = await myDataSource.getRepository(Token)
     const checkUser = await userRepository.findOne({ where: { email: req.body.email }});
 
     if (!checkUser) return res.send({status:"error", message: "ไม่พบ Email ผู้ใช้" });
 
+    const checkTokens = await tokenRepository.findOne(
+      {
+        relations: {
+          user: true,
+        },
+        where: {
+          user: {
+            id: checkUser.id
+          }
+        }
+      });
+
     bcrypt.compare(req.body.password, checkUser.password, async (err, result) => {
       if (result) {
-        var token = jwt.sign({ email: checkUser.email }, secretKey, { expiresIn: '2h' });
-        res.send({ status:"ok", message: token });
+        if (!checkTokens) {
+          var token = jwt.sign({ email: checkUser.email }, secretKey, { expiresIn: '2h' });
+          const newToken = await tokenRepository.create({ token: token, userId: checkUser.id });
+          const newTokens = await tokenRepository.save(newToken);
+
+          newTokens && res.send({ status:"ok", token });
+        } else {
+          res.status(403).send({ status:"error", message: "มีคน Login เข้าใช้งานแล้ว" });
+        }
       } else {
         res.send({ status:"error", message: "รหัสผ่านไม่ถูกต้อง" });
       }
@@ -78,6 +81,26 @@ export const login = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
     res.status(404).send("Login Failed");
+  }
+}
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    if (req.userSingle) {
+      const tokenRepository = await myDataSource.getRepository(Token)
+      const checkToken = await tokenRepository.findOne({ where: { userId: req.userSingle.id }});
+      if (!checkToken) res.send({status:"error", message: "ไม่พบ Token ผู้ใช้" });
+      const delToken = await tokenRepository
+        .createQueryBuilder()
+        .delete()
+        .from(Token)
+        .where("userId = :id", { id: req.userSingle.id })
+        .execute();
+      delToken && res.send({ status:'ok', message:'Token deleted successfully'})
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404).send("Logout Failed");
   }
 }
 
@@ -120,5 +143,26 @@ export const changePassword = async (req: Request, res: Response) => {
 //   } catch (err) {
 //     console.log(err);
 //     res.send("Server error");
+//   }
+// }
+
+// export const getSingleUser = async (req: Request, res: Response) => {
+//   try {
+//     if (req.headers.authorization) {
+//       const token = req.headers.authorization.split(" ")[1]
+//       const decoded = jwt.verify(token, secretKey) as JwtPayload;
+//       if (decoded && typeof decoded === 'object' && 'email' in decoded) {
+//         const userRepository = await myDataSource.getRepository(User)
+//         const userSingle = await userRepository.findOne({ where: { email: decoded.email.toString()}});
+//         res.send(userSingle);
+//       } else {
+//         res.send({ status:"error", message: "Invalid token" });
+//         // throw new Error('Invalid token');
+//       }
+//     } else {
+//       res.send({ status:"error", message: "Not Found" });
+//     }
+//   } catch (err) {
+//     res.status(404).send({ message: err });
 //   }
 // }

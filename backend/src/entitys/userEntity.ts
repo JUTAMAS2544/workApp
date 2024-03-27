@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm"
+import { ScoreAns, Summary } from "./scoreEntity"
 
 @Entity()
 export class User {
@@ -55,5 +56,24 @@ export class User {
 
     @Column({ nullable: false})
     answer_6!: string
+
+    @OneToMany(() => ScoreAns, scoreAns => scoreAns.user)
+    scoreAns!: ScoreAns[]
+}
+
+@Entity()
+export class Token {
+    @PrimaryGeneratedColumn()
+    id!: number
+
+    @Column({ nullable: false })
+    token!: string
+
+    @Column({ nullable: false })
+    userId!: number
+
+    @OneToOne(() => User)
+    @JoinColumn()
+    user!: User
 
 }
