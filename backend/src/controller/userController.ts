@@ -65,13 +65,13 @@ export const login = async (req: Request, res: Response) => {
     bcrypt.compare(req.body.password, checkUser.password, async (err, result) => {
       if (result) {
         if (!checkTokens) {
-          var token = jwt.sign({ email: checkUser.email }, secretKey, { expiresIn: '2h' });
+          var token = jwt.sign({ email: checkUser.email }, secretKey);
           const newToken = await tokenRepository.create({ token: token, userId: checkUser.id });
           const newTokens = await tokenRepository.save(newToken);
 
           newTokens && res.send({ status:"ok", token });
         } else {
-          res.status(403).send({ status:"error", message: "มีคน Login เข้าใช้งานแล้ว" });
+          res.status(403).send({ status:"error", message: "มีผู้ Login เข้าใช้งานแล้ว" });
         }
       } else {
         res.send({ status:"error", message: "รหัสผ่านไม่ถูกต้อง" });

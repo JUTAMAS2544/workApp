@@ -75,9 +75,7 @@
           (Blockchain food traceability and certification technology)
         </p>
         <p class="tw-text-lg md:tw-text-xl tw-text-black tw-mt-4">
-          เทคโนโลยีที่เป็นระบบในการติดตามที่มาของผลไม้สดในการไปใช้เพื่อการบริโภค ตลอดทุกขั้นตอน
-ของการผลิต การแปรรูป และการจัดจำหน่ายที่
-ผ่านการรับรองตามมาตรฐานสากลทางอาหาร
+          เทคโนโลยีที่เป็นระบบในการติดตามที่มาของผลไม้สดในการไปใช้เพื่อการบริโภค ตลอดทุกขั้นตอนของการผลิต การแปรรูป และการจัดจำหน่ายที่ผ่านการรับรองตามมาตรฐานสากลทางอาหาร
         </p>
       </div>
       <img src="/landing-4.png" class="tw-rounded-3xl tw-order-first md:tw-order-last">
@@ -141,11 +139,24 @@
     </div>
   </div>
 
-  <!-- Page 7 -->
+  <!-- Page 8 -->
   <div class="tw-py-10 tw-px-5 md:tw-py-16 md:tw-px-12">
-    <p class="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-center tw-text-[#0F665C] tw-tracking-widest tw-capitalize">
+    <p class="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-center tw-text-[#0F665C] tw-tracking-widest tw-uppercase">
       customer testimonial
     </p>
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6 md:tw-gap-10 tw-mt-10 tw-h-[590px] md:tw-h-96">
+      <Testimonial
+        text="หลังการประเมิน DigiFruit Index
+            และการได้รับคำแนะนำจากที่ปรึกษามืออาชีพ
+            สินค้าของเราขายได้มากขึ้นด้วยราคาที่สูงขึ้น
+            ดีใจมากค่ะ"
+        image="/testimonial-1.png"
+      />
+      <Testimonial
+        text="พอรู้ว่าเราจะเอาเทคโนโลยีมาใช้อย่างไร ผ่านการแนะนำจากทีมงานทำให้เราตีตลาดกลุ่มเฉพาะได้มากขึ้น เพราะลูกค้าให้ความสำคัญกับสิ่งนี้ และพร้อมจะจ่ายเงินเพิ่มกับผลไม้ของเรา"
+        image="/testimonial-2.png"
+      />
+    </div>
   </div>
 </template>
 

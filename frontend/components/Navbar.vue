@@ -34,8 +34,8 @@
       <NuxtLink to="/Pricing">
         <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="activeMenu === 2 ? 'tw-text-[#ffcd1a]': ''">Plans & Pricing</v-btn>
       </NuxtLink>
-      <NuxtLink to="/">
-        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg">Contact us</v-btn>
+      <NuxtLink to="/Contact">
+        <v-btn class="hover:tw-text-[#ffe68e] tw-text-lg" :class="activeMenu === 3 ? 'tw-text-[#ffcd1a]': ''">Contact us</v-btn>
       </NuxtLink>
     </div>
 
@@ -57,7 +57,7 @@ const menus = [
   { title: 'Home', path: '/' },
   { title: 'Index Assessment', path: '/Assessment/PageStart' },
   { title: 'Plans & Pricing', path: '/Pricing' },
-  { title: 'Contact us', path: '/' },
+  { title: 'Contact us', path: '/Contact' },
 ]
 
 const text = computed(() => {
