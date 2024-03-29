@@ -32,22 +32,24 @@ export const createScore = async (req: Request, res: Response) => {
       const summaryIT = await calculateScoreIT(scoreData)
       const summaryEC = await calculateScoreEC(scoreData)
 
-      console.log("ValueTC: ", summaryTC)
-      console.log("ValueSP: ", summarySP)
-      console.log("ValueIT: ", summaryIT)
-      console.log("ValueEC: ", summaryEC)
+      // console.log("ValueTC: ", summaryTC)
+      // console.log("ValueSP: ", summarySP)
+      // console.log("ValueIT: ", summaryIT)
+      // console.log("ValueEC: ", summaryEC)
 
-      console.log("checkScore : ", checkScore.length)
+      // console.log("checkScore : ", checkScore.length)
       if (checkScore.length > 0) {
-        console.log('Score Pass')
+        // console.log('Score Pass')
         for (let scoreItem of scoreData) {
           const { value, questionId } = scoreItem;
-          await scoreRepository
+          const updateScore = await scoreRepository
             .createQueryBuilder()
             .update(ScoreAns)
             .set({ value }) // กำหนดค่า value ที่ต้องการอัปเดต
             .where("userId = :userId AND questionId = :questionId", { userId: req.userSingle.id, questionId })
             .execute();
+
+            !updateScore && res.send({ status: "error", message: "Change Score Failed" })
         }
         const updateSummary = await summaryRepository
           .createQueryBuilder()
@@ -69,9 +71,10 @@ export const createScore = async (req: Request, res: Response) => {
           })
           .where("userId = :userId", {userId: req.userSingle.id})
           .execute();
-          updateSummary && res.send({ status: "ok", message: "Change Score Success" })
+          !updateSummary && res.send({ status: "error", message: "Change Summary Failed" })
+          updateSummary && res.send({ status: "ok", message: "Change Score and Summary Success" })
       } else {
-        console.log('Score not Pass')
+        // console.log('Score not Pass')
         const ans = await req.body.map((score: ScoreAns) => {
           return {
             userId: req.userSingle?.id,
@@ -81,7 +84,29 @@ export const createScore = async (req: Request, res: Response) => {
         })
         const newScore = await scoreRepository.create(ans)
         const seveNewScore = await scoreRepository.save(newScore)
-        seveNewScore && res.send({ status: "ok", message: "Send Score Success"});
+        if (seveNewScore) {
+          const newSummary = await summaryRepository.create({
+            userId: req.userSingle.id,
+            tc_1: summaryTC[0],
+            tc_2: summaryTC[1],
+            tc_3: summaryTC[2],
+            tc_4: summaryTC[3],
+            sp_1: summarySP[0],
+            it_1: summaryIT[0],
+            it_2: summaryIT[1],
+            it_3: summaryIT[2],
+            ec_1: summaryEC[0],
+            ec_2: summaryEC[1],
+            ec_3: summaryEC[2],
+            ec_4: summaryEC[3],
+            score: calScore([summaryTC[4], summaryTC[5], summarySP[1], summarySP[2], summaryIT[3], summaryIT[4], summaryEC[4], summaryEC[5]])
+          })
+
+          const summaryAns = await summaryRepository.save(newSummary)
+          summaryAns && res.send({ status: "ok", message: "Create Score and Summary Success"});
+        } else {
+          res.send({ status: "error", message: "Create Score Failed" });
+        }
       }
     }
   } catch (err) {

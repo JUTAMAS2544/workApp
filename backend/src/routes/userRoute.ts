@@ -30,7 +30,7 @@ router.get("/user/all", getAllUsers);
 router.get("/user", isLoggedIn, getSingleUser);
 router.post("/register", register);
 router.post("/login", login)
-router.post("/logout", isLoggedIn, logout)
+router.get("/logout", isLoggedIn, logout)
 router.put("/changePassword", changePassword);
 
 // router.get("/score/:id", isLoggedIn, getScoreList);

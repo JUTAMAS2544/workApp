@@ -278,14 +278,14 @@ watchEffect(async () => {
 
 onMounted(async () => {
   isLoading.value = true;
-  if (user.getUserData) {
-    await score.fetchSummary(user.getUserData.id);
-    if (score.getSummary) {
-      scoreTC.value = score.getSummary.tc_4;
-      scoreSP.value = score.getSummary.sp_1;
-      scoreIT.value = score.getSummary.it_3;
-      scoreEC.value = score.getSummary.ec_4;
-    }
+  // if (user.getUserData) {
+  // }
+  await score.fetchSummary();
+  if (score.getSummary) {
+    scoreTC.value = score.getSummary.tc_4;
+    scoreSP.value = score.getSummary.sp_1;
+    scoreIT.value = score.getSummary.it_3;
+    scoreEC.value = score.getSummary.ec_4;
   }
   isLoading.value = false;
 });

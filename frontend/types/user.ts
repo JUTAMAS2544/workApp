@@ -52,6 +52,7 @@ export interface ChangePasswordType {
 export interface ResponseType {
   status: string;
   message: string;
+  token: string;
 }
 
 export interface IndexType {

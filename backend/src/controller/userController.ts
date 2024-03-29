@@ -71,7 +71,7 @@ export const login = async (req: Request, res: Response) => {
 
           newTokens && res.send({ status:"ok", token });
         } else {
-          res.status(403).send({ status:"error", message: "มีผู้ Login เข้าใช้งานแล้ว" });
+          res.send({ status:"error", message: "มีผู้ Login เข้าใช้งานแล้ว" });
         }
       } else {
         res.send({ status:"error", message: "รหัสผ่านไม่ถูกต้อง" });
@@ -89,6 +89,7 @@ export const logout = async (req: Request, res: Response) => {
     if (req.userSingle) {
       const tokenRepository = await myDataSource.getRepository(Token)
       const checkToken = await tokenRepository.findOne({ where: { userId: req.userSingle.id }});
+      // console.log(checkToken)
       if (!checkToken) res.send({status:"error", message: "ไม่พบ Token ผู้ใช้" });
       const delToken = await tokenRepository
         .createQueryBuilder()

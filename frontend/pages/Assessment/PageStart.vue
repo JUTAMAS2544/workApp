@@ -31,11 +31,13 @@ const goToSummary = () => {
 }
 
 onMounted(async () => {
-  if (user.getUserData) {
-    // console.log("id:", user.getUserData.id)
-    await score.setUserID(user.getUserData.id)
-    await score.fetchScore(user.getUserData.id)
-  }
+  // if (user.getUserData) {
+  //   // console.log("id:", user.getUserData.id)
+  //   await score.setUserID(user.getUserData.id)
+  //   // await score.fetchScore(user.getAuthToken)
+  // }
+  const token = localStorage.getItem('token');
+  await score.fetchScore(token as string)
 })
 </script>
 

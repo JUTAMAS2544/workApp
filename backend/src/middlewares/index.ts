@@ -16,6 +16,7 @@ const secretKey = "Fullstack-WebApp-Work-2024";
 export const isLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let auth = req.headers.authorization
+    // console.log(auth)
     const userRepository = await myDataSource.getRepository(User)
     const tokenRepository = await myDataSource.getRepository(Token)
     if (auth) {
@@ -28,11 +29,11 @@ export const isLoggedIn = async (req: Request, res: Response, next: NextFunction
         next();
 
       } else {
-        res.status(401).send('You are not logged in')
+        res.status(401).send('You are not logged in check Tokens')
       }
 
     } else {
-      res.status(401).send('You are not logged in')
+      res.status(401).send('You are not logged in aaa')
     }
   } catch (err) {
     console.log(err);

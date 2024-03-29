@@ -15,17 +15,16 @@ export const useUser = defineStore('user', () => {
 
   async function fetchLogin(payload: LoginType) {
     try {
-      const { data } = await axios.post<ResponseType>(`${import.meta.env.VITE_API}/login/`, payload)
+      const { data } = await axios.post<ResponseType>(`${import.meta.env.VITE_API}/login`, payload)
 
       if (data.status === 'ok') {
-        authToken.value = data.message
-        localStorage.setItem("token", data.message)
+        authToken.value = data.token
+        localStorage.setItem("token", data.token)
       } else {
         alert(data.message)
       }
 
     } catch (err) {
-      // alert("Login Failed, Please check the correctness of your email and password.")
       console.log("error", err)
     }
   }
@@ -69,11 +68,21 @@ export const useUser = defineStore('user', () => {
     }
   }
 
+  async function logout() {
+    try {
+      const token = localStorage.getItem('token');
+      const { data } = await axios.get(`${import.meta.env.VITE_API}/logout/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }})
 
-  function logout() {
-    localStorage.removeItem("token")
-    authToken.value = ""
-    userData.value = null
+      localStorage.removeItem("token")
+      authToken.value = ""
+      userData.value = null
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return {

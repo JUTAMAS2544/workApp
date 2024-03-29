@@ -8,17 +8,17 @@
           <p class="tw-text-xs md:tw-text-lg tw-font-semibold">
             {{ i.topic_th }}
           </p>
-          <p class="tw-text-[10px] md:tw-text-base tw-font-semibold tw-mt-2">
+          <p class="tw-text-[10px] md:tw-text-base tw-font-semibold tw-mt-1">
             {{ i.topic }}
           </p>
         </div>
         <div class="tw-text-sm md:tw-text-2xl tw-font-semibold tw-flex tw-items-center tw-justify-end tw-p-3 md:tw-p-6">
           <p>
-            <span v-if="i.topic[1] === 'n'">{{ data.tc.toFixed(2) }}</span>
-            <span v-if="i.topic[1] === 'r'">{{ data.sp.toFixed(2) }}</span>
-            <span v-if="i.topic[1] === 'm'">{{ data.it.toFixed(2) }}</span>
-            <span v-if="i.topic[1] === 'o'">{{ data.ec.toFixed(2) }}</span>
-            <span v-if="i.topic[1] === 'g'">{{ data.score.toFixed(2) }}</span>
+            <span v-if="i.topic[1] === 'n'">{{ data.score.toFixed(2) }}</span>
+            <span v-if="i.topic[1] === 'r'">{{ data.tc.toFixed(2) }}</span>
+            <span v-if="i.topic[1] === 'm'">{{ data.sp.toFixed(2) }}</span>
+            <span v-if="i.topic[1] === 'o'">{{ data.it.toFixed(2) }}</span>
+            <span v-if="i.topic[1] === 'g'">{{ data.ec.toFixed(2) }}</span>
             %
           </p>
         </div>
@@ -53,9 +53,9 @@ const goToPlans = () => {
 
 onMounted(async () => {
   isLoading.value = true;
-  if (user.getUserData) {
-    await score.fetchSuggession(user.getUserData.id);
-  }
+  // if (user.getUserData) {
+  // }
+  await score.fetchSuggession();
   isLoading.value = false;
 });
 

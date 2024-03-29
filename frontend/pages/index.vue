@@ -9,7 +9,7 @@
         ดัชนีเทคโนโลยีดิจิทัลด้านเกษตรอาหารที่มีผลต่อคุณค่าที่ผู้บริโภครับรู้และความตั้งใจซื้อ
       </p>
       <NuxtLink to="/Login" class="tw-flex tw-justify-end">
-        <v-btn rounded="xl" size="x-small" color="#00ABF5" class="md:tw-hidden tw-block tw-w-20" v-if="!user.getUserData">Login</v-btn>
+        <!-- <v-btn rounded="xl" size="x-small" color="#00ABF5" class="md:tw-hidden tw-block tw-w-20" v-if="!user.getUserData">Login a</v-btn> -->
         <v-btn rounded="xl" size="x-large" color="#00ABF5" class="tw-hidden md:tw-block tw-w-40" v-if="!user.getUserData">Login</v-btn>
       </NuxtLink>
     </div>
@@ -48,7 +48,7 @@
   </div>
 
   <!-- Page 3 -->
-  <div class="md:tw-py-20 md:tw-h-[580px]">
+  <div class="md:tw-py-20 md:tw-h-[630px]">
     <div class="tw-bg-[#384D0B] md:tw-rounded-3xl tw-h-3/4 md:tw-mx-12 tw-py-12">
       <p class="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-center tw-text-[#EAFFE0] tw-tracking-widest">
         ตัวชี้วัด

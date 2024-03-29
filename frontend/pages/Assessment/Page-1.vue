@@ -13,12 +13,12 @@
       <div class="tw-flex tw-gap-3">
         <v-icon size="x-large" icon="mdi-alert-circle"></v-icon>
         <div>
-          <p class="tw-text-lg tw-font-semibold">ท่านยังเลือกคะแนนไม่ครบ</p>
+          <p class="tw-text-lg tw-font-semibold">ท่านยังเลือกคำตอบไม่ครบ</p>
           <p>กรุณาตรวจสอบ
-            <span v-if="!score.getCheckScoreTC" class="tw-font-semibold">คำถามที่ 1 </span>
-            <span v-if="!score.getCheckScoreSP" class="tw-font-semibold">คำถามที่ 2 </span>
-            <span v-if="!score.getCheckScoreIT" class="tw-font-semibold">คำถามที่ 3 </span>
-            <span v-if="!score.getCheckScoreEC" class="tw-font-semibold">คำถามที่ 4 </span>
+            <span v-if="!score.getCheckScoreTC" class="tw-font-semibold">คำถามหน้าที่ 1 </span>
+            <span v-if="!score.getCheckScoreSP" class="tw-font-semibold">คำถามหน้าที่ 2 </span>
+            <span v-if="!score.getCheckScoreIT" class="tw-font-semibold">คำถามหน้าที่ 3 </span>
+            <span v-if="!score.getCheckScoreEC" class="tw-font-semibold">คำถามหน้าที่ 4 </span>
           </p>
         </div>
       </div>
@@ -63,10 +63,10 @@
                 <p class="tw-text-base md:tw-text-2xl tw-font-semibold">กรุณาเลือกคะแนนที่ตรงกับความคิดเห็นของท่าน</p>
               </v-card-title>
               <v-card-text class="tw-text-center">
-                <QuestionTable v-if="n===1 && tc" text="tc" :detail="tc" />
-                <QuestionTable v-if="n===2 && sp" text="sp" :detail="sp" />
-                <QuestionTable v-if="n===3 && it" text="it" :detail="it" />
-                <QuestionTable v-if="n===4 && ec" text="ec" :detail="ec" />
+                <QuestionTable v-if="n===1 && questionTC" :detail="questionTC" />
+                <QuestionTable v-if="n===2 && questionSP" :detail="questionSP" />
+                <QuestionTable v-if="n===3 && questionIT" :detail="questionIT" />
+                <QuestionTable v-if="n===4 && questionEC" :detail="questionEC" />
               </v-card-text>
             </v-card>
           </v-stepper-window-item>
@@ -113,7 +113,9 @@
 
 <script setup lang="ts">
 import { useQuestion } from '~/stores/question.store';
-import type { ScoreSendType } from '~/types/score';
+import type { QuestionType } from '~/types/question';
+import type { SendType } from '~/types/score';
+// import type { ScoreSendType } from '~/types/score';
 
 definePageMeta({
   middleware: ['auth']
@@ -124,15 +126,13 @@ const score = useScore()
 const menu = useActive();
 const user = useUser();
 
-const tc = computed(() => question.getQuestionTC)
-const sp = computed(() => question.getQuestionSP)
-const it = computed(() => question.getQuestionIT)
-const ec = computed(() => question.getQuestionEC)
+// const questionList = computed(() => question.getQuestion)
+// const questionList = computed(() => question.getQuestion)
 const show = computed(() => menu.getShowChangePage)
 
 const isLoading = ref(false)
 const alertCheckScore = ref(false)
-const answers = ref<ScoreSendType>()
+const answers = ref<SendType[]>()
 
 const dataDetail = [
   {
@@ -170,6 +170,50 @@ const disabled = computed(() => {
     : undefined;
 });
 
+const questionTC = computed(() => {
+  if (question.getQuestion) {
+    const listQ = question.getQuestion.filter((q: QuestionType) => {
+      if (q.category === 'TC') {
+        return q
+      }
+    })
+    return listQ
+  }
+})
+
+const questionSP = computed(() => {
+  if (question.getQuestion) {
+    const listQ = question.getQuestion.filter((q: QuestionType) => {
+      if (q.category === 'SP') {
+        return q
+      }
+    })
+    return listQ
+  }
+})
+
+const questionIT = computed(() => {
+  if (question.getQuestion) {
+    const listQ = question.getQuestion.filter((q: QuestionType) => {
+      if (q.category === 'IT') {
+        return q
+      }
+    })
+    return listQ
+  }
+})
+
+const questionEC = computed(() => {
+  if (question.getQuestion) {
+    const listQ = question.getQuestion.filter((q: QuestionType) => {
+      if (q.category === 'EC') {
+        return q
+      }
+    })
+    return listQ
+  }
+})
+
 const handleCheckPage = () => {
   menu.setCheckPage(false);
   menu.setShowChangePage(false);
@@ -177,49 +221,27 @@ const handleCheckPage = () => {
 }
 
 const submit = async () => {
+  // console.log("scoreTC: ", score.getScoreTC);
+  // console.log("scoreSP: ", score.getScoreSP);
+  // console.log("scoreIT: ", score.getScoreIT);
+  // console.log("scoreEC: ", score.getScoreEC);
   if (score.getCheckScoreTC && score.getCheckScoreSP && score.getCheckScoreIT && score.getCheckScoreEC) {
+
     isLoading.value = true
-    answers.value = {
-      userId: score.getUserID,
-      ans1_tc: score.getScoreTC?.question_1 as number,
-      ans2_tc: score.getScoreTC?.question_2 as number,
-      ans3_tc: score.getScoreTC?.question_3 as number,
-      ans4_tc: score.getScoreTC?.question_4 as number,
-      ans5_tc: score.getScoreTC?.question_5 as number,
-      ans6_tc: score.getScoreTC?.question_6 as number,
-      ans7_tc: score.getScoreTC?.question_7 as number,
-      ans8_tc: score.getScoreTC?.question_8 as number,
-      ans9_tc: score.getScoreTC?.question_9 as number,
-      ans10_sp: score.getScoreSP?.question_1 as number,
-      ans11_sp: score.getScoreSP?.question_2 as number,
-      ans12_sp: score.getScoreSP?.question_3 as number,
-      ans13_it: score.getScoreIT?.question_1 as number,
-      ans14_it: score.getScoreIT?.question_2 as number,
-      ans15_it: score.getScoreIT?.question_3 as number,
-      ans16_it: score.getScoreIT?.question_4 as number,
-      ans17_it: score.getScoreIT?.question_5 as number,
-      ans18_it: score.getScoreIT?.question_6 as number,
-      ans19_it: score.getScoreIT?.question_7 as number,
-      ans20_ec: score.getScoreEC?.question_1 as number,
-      ans21_ec: score.getScoreEC?.question_2 as number,
-      ans22_ec: score.getScoreEC?.question_3 as number,
-      ans23_ec: score.getScoreEC?.question_4 as number,
-      ans24_ec: score.getScoreEC?.question_5 as number,
-      ans25_ec: score.getScoreEC?.question_6 as number,
-      ans26_ec: score.getScoreEC?.question_7 as number,
-      ans27_ec: score.getScoreEC?.question_8 as number,
-      ans28_ec: score.getScoreEC?.question_9 as number,
-      ans29_ec: score.getScoreEC?.question_10 as number,
-      ans30_ec: score.getScoreEC?.question_11 as number
+
+    if (score.getScoreTC && score.getScoreSP && score.getScoreIT && score.getScoreEC) {
+      answers.value = [...score.getScoreTC, ...score.getScoreSP, ...score.getScoreIT, ...score.getScoreEC]
+      console.log("check send: ",answers.value);
+      await score.sendScore(answers.value)
     }
-    await score.sendScore(answers.value)
+
     isLoading.value = false
     if (score.getPostScore && score.getPostScore.status === 'ok') {
       navigateTo('/Assessment/Summary')
     } else {
-      console.log("submit Failed T0T");
+      console.log("submit Failed");
     }
-    // console.log("submit");
+
   } else {
     alertCheckScore.value = true
   }
@@ -228,10 +250,8 @@ const submit = async () => {
 
 onMounted(async ()=> {
   isLoading.value = true
-  await question.fetchQuestionTC()
-  await question.fetchQuestionSP()
-  await question.fetchQuestionIT()
-  await question.fetchQuestionEC()
+  await question.fetchQuestion()
+  // await questionTC(question.getQuestion as QuestionType[])
   isLoading.value = false
 })
 </script>
