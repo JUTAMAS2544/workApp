@@ -1,7 +1,7 @@
 <template>
   <div class="tw-bg-[url('/bg-login.png')] tw-bg-cover tw-bg-center tw-h-full">
     <v-container class="tw-flex tw-justify-center tw-items-center tw-h-full">
-      <v-card class="tw-py-3 md:tw-py-6 md:tw-px-6 tw-rounded-3xl tw-w-4/5">
+      <v-card class="tw-py-3 md:tw-py-6 md:tw-px-6 tw-rounded-3xl tw-w-full md:tw-w-4/5">
         <v-card-item>
           <v-card-title
             class="tw-text-center tw-text-xl md:tw-text-2xl tw-font-semibold"
@@ -263,7 +263,7 @@
                   class="tw-mt-5 tw-w-full tw-text-white"
                   type="submit"
                 >
-                  Create Account
+                  Create
                 </v-btn>
               </div>
             </div>
@@ -482,7 +482,6 @@ const num_personnel = useField<string | null>('num_personnel')
 const email = useField('email')
 const password = useField('password')
 const confirmPassword = useField('confirmPassword')
-// const answer_1 = useField<string[] | null>('answer_1')
 const answer_1 = useField<string[] | null>('answer_1')
 const answer_2 = useField<string[] | null>('answer_2')
 const answer_3 = useField<string | null>('answer_3')
@@ -491,8 +490,7 @@ const answer_5 = useField<string | null>('answer_5')
 const answer_6 = useField<string | null>('answer_6')
 
 const onSubmit = handleSubmit(async values => {
-  console.log("send: ", values)
-  // console.log("send 1: ", values.answer_1.toString())
+  // console.log("send: ", values)
   const params = {
     email: values.email,
     password: values.password,
@@ -513,7 +511,7 @@ const onSubmit = handleSubmit(async values => {
     answer_6: values.answer_6
   }
   await user.fetchRegister(params)
-  console.log("Register successful")
+  alert("Create Account successful")
   navigateTo('/Login')
 })
 

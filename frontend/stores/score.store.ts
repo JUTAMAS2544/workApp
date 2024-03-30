@@ -5,7 +5,6 @@ import type { ScoreType, SummaryType, SuggesstionType, SendType } from '~/types/
 import type { ResponseType } from '~/types/user';
 
 export const useScore = defineStore('score', () => {
-  const userID = ref(0)
   const score = ref<ScoreType[]>()
   const scoreTC = ref<SendType[]>()
   const scoreSP = ref<SendType[]>()
@@ -19,7 +18,6 @@ export const useScore = defineStore('score', () => {
   const summary = ref<SummaryType>()
   const suggession = ref<SuggesstionType>()
 
-  const getUserID = computed(() => userID.value)
   const getScore = computed(() => score.value)
   const getScoreTC = computed(() => scoreTC.value)
   const getScoreSP = computed(() => scoreSP.value)
@@ -33,9 +31,6 @@ export const useScore = defineStore('score', () => {
   const getSummary = computed(() => summary.value)
   const getSuggession = computed(() => suggession.value)
 
-  const setUserID = (id: number) => {
-    userID.value = id
-  }
   const setScoreTC = async (scores: Record<string, number>, questions: QuestionType[]) => {
     if (Object.keys(scores).length === 9) {
       checkScoreTC.value = true
@@ -244,7 +239,6 @@ export const useScore = defineStore('score', () => {
 
 
   return {
-    getUserID,
     getScore,
     getScoreTC,
     getScoreSP,
@@ -257,7 +251,6 @@ export const useScore = defineStore('score', () => {
     getPostScore,
     getSummary,
     getSuggession,
-    setUserID,
     setScoreTC,
     setScoreSP,
     setScoreIT,

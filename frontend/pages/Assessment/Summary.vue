@@ -84,7 +84,6 @@ definePageMeta({
 const myChart = ref<Chart>();
 
 const score = useScore();
-const user = useUser();
 const isLoading = ref(false);
 const data = ref<ScoreDataType[]>();
 const scoreMain = computed(() => {
@@ -278,8 +277,6 @@ watchEffect(async () => {
 
 onMounted(async () => {
   isLoading.value = true;
-  // if (user.getUserData) {
-  // }
   await score.fetchSummary();
   if (score.getSummary) {
     scoreTC.value = score.getSummary.tc_4;

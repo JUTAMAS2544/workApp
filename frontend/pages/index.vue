@@ -5,16 +5,14 @@
       <p class="tw-pb-2 tw-mb-3 md:tw-pb-5 md:tw-mb-5 md:tw-text-4xl/normal tw-font-bold tw-uppercase tw-tracking-wider tw-border-b-2 md:tw-border-b-4 tw-border-[#FFC700]">
         Index of digital agrifood<br/>technologies on consumer<br/>perceived value and<br/>purchase intention
       </p>
-      <p class="tw-mb-3 md:tw-mb-10 tw-text-[8px] md:tw-text-base">
+      <p class="md:tw-mb-10 tw-text-base">
         ดัชนีเทคโนโลยีดิจิทัลด้านเกษตรอาหารที่มีผลต่อคุณค่าที่ผู้บริโภครับรู้และความตั้งใจซื้อ
       </p>
       <NuxtLink to="/Login" class="tw-flex tw-justify-end">
-        <!-- <v-btn rounded="xl" size="x-small" color="#00ABF5" class="md:tw-hidden tw-block tw-w-20" v-if="!user.getUserData">Login a</v-btn> -->
         <v-btn rounded="xl" size="x-large" color="#00ABF5" class="tw-hidden md:tw-block tw-w-40" v-if="!user.getUserData">Login</v-btn>
       </NuxtLink>
     </div>
     <div>
-      <!-- {{ user.getUserData }} -->
     </div>
   </div>
 

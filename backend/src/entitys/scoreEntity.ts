@@ -23,7 +23,7 @@ export class ScoreAns extends Content {
     @JoinColumn({ name: "userId" })
     user!: User
 
-  @ManyToOne(() => Question, question => question.scoreAns, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Question, question => question.scoreAns)
     @JoinColumn({ name: "questionId" })
     question!: Question
 
@@ -128,7 +128,7 @@ export class Summary extends Content {
   @Column({ nullable: false })
     userId!: number
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
     @JoinColumn()
     user!: User
 

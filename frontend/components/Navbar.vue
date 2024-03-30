@@ -62,7 +62,7 @@
       <div v-if="!checkLogin && i === 4">
         <v-divider :thickness="2" class="tw-opacity-100"></v-divider>
         <NuxtLink :to="item.path">
-          <v-list-item-title class="tw-mt-4 tw-mb-2 tw-px-3 tw-font-semibold tw-text-xl tw-tracking-wide">{{ item.title }}ss</v-list-item-title>
+          <v-list-item-title class="tw-mt-4 tw-mb-2 tw-px-3 tw-font-semibold tw-text-xl tw-tracking-wide">{{ item.title }}</v-list-item-title>
         </NuxtLink>
       </div>
       <div v-if="i !== 4" >

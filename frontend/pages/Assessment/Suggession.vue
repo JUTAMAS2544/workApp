@@ -39,7 +39,6 @@ definePageMeta({
   middleware: ['auth']
 })
 const score = useScore();
-const user = useUser();
 const isLoading = ref(false);
 
 const data = computed(() => {
@@ -53,8 +52,6 @@ const goToPlans = () => {
 
 onMounted(async () => {
   isLoading.value = true;
-  // if (user.getUserData) {
-  // }
   await score.fetchSuggession();
   isLoading.value = false;
 });

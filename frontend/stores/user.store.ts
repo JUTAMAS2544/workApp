@@ -60,8 +60,7 @@ export const useUser = defineStore('user', () => {
   async function fetchRegister(payload: RegisterType) {
     try {
       const { data } = await axios.post<ResponseType>(`${import.meta.env.VITE_API}/register/`, payload)
-
-      console.log("register: ", data)
+      // console.log("register: ", data)
 
     } catch (err) {
       alert("Register Failed.")

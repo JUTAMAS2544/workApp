@@ -231,7 +231,6 @@ const submit = async () => {
 
     if (score.getScoreTC && score.getScoreSP && score.getScoreIT && score.getScoreEC) {
       answers.value = [...score.getScoreTC, ...score.getScoreSP, ...score.getScoreIT, ...score.getScoreEC]
-      console.log("check send: ",answers.value);
       await score.sendScore(answers.value)
     }
 
@@ -239,7 +238,7 @@ const submit = async () => {
     if (score.getPostScore && score.getPostScore.status === 'ok') {
       navigateTo('/Assessment/Summary')
     } else {
-      console.log("submit Failed");
+      alert("Submit Failed");
     }
 
   } else {

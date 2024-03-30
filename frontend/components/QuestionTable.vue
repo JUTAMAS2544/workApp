@@ -33,7 +33,6 @@
 
 <script setup lang="ts">
 import type { QuestionType } from '~/types/question';
-import type { ScoreType, SendType } from '~/types/score';
 
 interface Props {
   detail: QuestionType[]
@@ -41,29 +40,6 @@ interface Props {
 const prop = defineProps<Props>()
 const answers = ref<Record<string, number>>({})
 const score = useScore()
-
-// const test = computed(() => {
-//   const listQuestionID = prop.detail.slice(1).map((value: QuestionType) => {
-//     return value.id
-//   })
-//   return listQuestionID
-// })
-
-// const test2 = computed(() => {
-//   if (Object.keys(answers.value).length === 4) {
-//     const list = ref<SendType[]>([])
-//     for (let index = 0; index < Object.keys(answers.value).length; index++) {
-//       const ele = {
-//         questionId: test.value[index],
-//         value: answers.value[Object.keys(answers.value)[index]]
-//       }
-//       list.value.push(ele);
-//       console.log("Hi", ele)
-//     }
-//     return list.value
-//   }
-//   return []
-// })
 
 watchEffect(async () => {
   if (answers.value) {

@@ -216,7 +216,6 @@ watchEffect(() => {
 
 watchEffect(()=> {
   if (user.getUserData) {
-    // console.log("token Login")
     navigateTo("/Assessment/PageStart");
   }
 })

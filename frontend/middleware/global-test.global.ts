@@ -38,30 +38,13 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
     const token = localStorage.getItem('token');
     if (token) {
-      // console.log("Naja 1")
       to.meta.requiresAuth = true;
       // if (!user.getUserData) {
       //   to.meta.requiresAuth = false;
-      //   // console.log("Naja 2")
       // }
     } else {
       to.meta.requiresAuth = false;
       // localStorage.removeItem('token');
-      // console.log("Naja 3")
     }
-
-
-    // console.log("Naja", to.meta.requiresAuth)
-
-     //this section will run in the browser so you can access
-     // local storage
   }
-
-
-  // const nuxtApp = useNuxtApp()
-  // if (process.client && nuxtApp.isHydrating &&
-  //             nuxtApp.payload.serverRendered) {
-  //    // this section will run only once , in the browser, when the page
-  //    // initialized
-  // }
 })
