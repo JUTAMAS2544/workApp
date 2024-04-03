@@ -18,8 +18,7 @@
             <span v-if="i.topic[1] === 'r'">{{ data.tc.toFixed(2) }}</span>
             <span v-if="i.topic[1] === 'm'">{{ data.sp.toFixed(2) }}</span>
             <span v-if="i.topic[1] === 'o'">{{ data.it.toFixed(2) }}</span>
-            <span v-if="i.topic[1] === 'g'">{{ data.ec.toFixed(2) }}</span>
-            %
+            <span v-if="i.topic[1] === 'g'">{{ data.ec.toFixed(2) }}</span>%
           </p>
         </div>
       </div>
