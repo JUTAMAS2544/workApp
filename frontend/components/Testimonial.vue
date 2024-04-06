@@ -5,9 +5,12 @@
       <img :src="prop.image" alt="Testimonial" class="tw-max-h-32 md:tw-max-h-48" >
       <img src="/egg-2.png" alt="Testimonial" class="tw-h-10 md:tw-h-12" >
     </div>
-    <div class="tw-bg-[#CAFFB2] tw-w-full tw-rounded-3xl tw-absolute tw-top-16 md:tw-top-24 tw-z-0 tw-h-3/4 tw-px-6 md:tw-px-12 tw-pt-20 md:tw-pt-32 tw-pb-5 " >
-      <p class="tw-text-[#3F3C00] tw-text-center md:tw-text-[19px] tw-whitespace-pre-line">
+    <div class="tw-bg-[#CAFFB2] tw-w-full tw-rounded-3xl tw-absolute tw-top-16 md:tw-top-24 tw-z-0 tw-px-6 md:tw-px-12 tw-pt-20 md:tw-pt-32 tw-pb-5 " >
+      <p class="tw-text-[#3F3C00] tw-text-center md:tw-text-[19px] tw-whitespace-pre-line tw-h-28 md:tw-h-40">
         {{ prop.text }}
+      </p>
+      <p class="tw-text-center tw-text-[#148941] tw-whitespace-pre-line tw-text-sm md:tw-text-base tw-font-semibold">
+        - {{ prop.subtext }} -
       </p>
     </div>
   </div>
@@ -16,6 +19,7 @@
 <script setup lang="ts">
 interface Props {
   text: string;
+  subtext: string;
   image: string;
 }
 

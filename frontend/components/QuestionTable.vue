@@ -1,5 +1,5 @@
 <template>
-  <v-table class="md:tw-mx-10 md:tw-text-base tw-text-base">
+  <v-table class="md:tw-mx-10 md:tw-text-xl tw-text-base">
     <thead>
       <tr class="tw-bg-[#CBFF88] tw-h-auto md:tw-h-28">
         <th class="tw-py-5">

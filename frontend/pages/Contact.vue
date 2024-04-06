@@ -1,10 +1,10 @@
 <template>
-  <v-container class="tw-flex tw-justify-center tw-items-center tw-my-6 md:tw-w-2/3">
-    <div class="tw-mx-3" >
+  <v-container class="tw-flex tw-justify-center tw-items-center tw-my-6 md:tw-w-4/5">
+    <div class="tw-mx-1" >
       <img src="/contact.png" >
       <p class="tw-text-2xl md:tw-text-3xl tw-font-bold tw-tracking-wide tw-capitalize tw-my-5 md:tw-my-8" >contact us</p>
       <p class="tw-mb-6" >
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea, aperiam eos nam veritatis voluptatibus eum quae cupiditate, soluta cum aut magni eveniet eius iure consequatur esse in nemo suscipit ipsa. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni quaerat officia illo ab quo provident aspernatur assumenda eos. Minus illum commodi esse dolorum excepturi fugiat ipsum consectetur velit corrupti incidunt?
+        ผู้ประกอบการหรือหน่วยงานที่สนใจในการพัฒนาศักยภาพธุรกิจด้านเกษตรอาหารเพื่อนำไปสู่การเพิ่มมูลค่าสินค้าเกษตรให้สูงขึ้นและมีผลการเติบโตทางกำไรอย่างยั่งยืน ท่านสามารถติดต่อเราเพื่อรับคำปรึกษาในเชิงลึก โดยผู้เชี่ยวชาญ (Implementation Consultant) ด้านการนำเทคโนโลยีดิจิทัลด้านเกษตรอาหารไปใช้ และพัฒนาการตลาดเชิงรุกอย่างสร้างสรรค์แก่ธุรกิจของท่าน สามารถร่วมงานกับเราได้ผ่านช่องทางด้านล่าง
       </p>
       <div class="tw-flex tw-items-center tw-gap-x-5 tw-ml-10 md:tw-ml-24 tw-mb-3" >
         <v-icon icon="mdi-email" size="x-large"></v-icon>
@@ -21,7 +21,7 @@
       <div class="tw-flex tw-items-center tw-gap-x-5 tw-ml-10 md:tw-ml-24 tw-mb-3" >
         <v-icon icon="mdi-map-marker" size="x-large"></v-icon>
         <p class="tw-tracking-wide">
-          สถานีอวกาศ แห่งดาวเซเลอร์
+          บริษัท Digifruit Consulting จำกัด
         </p>
       </div>
     </div>

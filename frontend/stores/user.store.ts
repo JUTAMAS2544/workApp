@@ -5,7 +5,7 @@ import type { ChangePasswordType, LoginType, RegisterType, UserType, ResponseTyp
 export const useUser = defineStore('user', () => {
   const authToken = ref('')
   const userData = ref<UserType | null>()
-  const register = ref<RegisterType>()
+  const register = ref<ResponseType>()
   const checkChangePassword = ref<ResponseType>()
 
   const getAuthToken = computed(() => authToken.value)
@@ -21,6 +21,7 @@ export const useUser = defineStore('user', () => {
         authToken.value = data.token
         localStorage.setItem("token", data.token)
       } else {
+        authToken.value = data.status
         alert(data.message)
       }
 
@@ -60,7 +61,13 @@ export const useUser = defineStore('user', () => {
   async function fetchRegister(payload: RegisterType) {
     try {
       const { data } = await axios.post<ResponseType>(`${import.meta.env.VITE_API}/register/`, payload)
-      // console.log("register: ", data)
+      console.log("register: ", data)
+      if (data.status === 'ok') {
+        register.value = data
+        alert(data.message)
+      } else {
+        alert(data.message)
+      }
 
     } catch (err) {
       alert("Register Failed.")

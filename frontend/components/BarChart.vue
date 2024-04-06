@@ -40,9 +40,11 @@ const chartData = computed(() => {
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgb(255, 99, 132)',
         pointBackgroundColor: 'rgb(255, 99, 132)',
-        pointBorderColor: '#fff',
+        pointBorderColor: 'rgb(219, 37, 76)',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgb(255, 99, 132)'
+        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        pointBorderWidth: 5,
+        pointHoverBorderWidth: 3,
       }
     ]
   }
@@ -53,7 +55,21 @@ const chartOptions = {
   scales: {
     r: {
       suggestedMin: 0,
-      suggestedMax: 100
+      suggestedMax: 100,
+      ticks: {
+          color: 'red',
+          font: {
+                  size: 14,
+                  family: "'Prompt', sans-serif"
+              }
+      },
+      pointLabels: {
+          color: '#000',
+          font: {
+                  size: 14,
+                  family: "'Prompt', sans-serif"
+              }
+      }
     }
   }
 }

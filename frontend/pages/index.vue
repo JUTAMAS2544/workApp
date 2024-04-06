@@ -1,15 +1,16 @@
 <template>
   <!-- Page 1 -->
-  <div class="tw-p-5 md:tw-p-12 md:tw-h-[540px] tw-bg-black tw-bg-[url('/bg-main.png')] tw-bg-contain md:tw-bg-cover tw-text-white tw-flex tw-justify-end tw-items-center">
+  <div class="tw-p-5 md:tw-p-12 md:tw-h-[540px] tw-bg-black tw-bg-[url('/bg-main.png')] tw-bg-cover tw-text-white tw-flex tw-justify-end tw-items-center">
     <div class="tw-text-right">
       <p class="tw-pb-2 tw-mb-3 md:tw-pb-5 md:tw-mb-5 md:tw-text-4xl/normal tw-font-bold tw-uppercase tw-tracking-wider tw-border-b-2 md:tw-border-b-4 tw-border-[#FFC700]">
         Index of digital agrifood<br/>technologies on consumer<br/>perceived value and<br/>purchase intention
       </p>
-      <p class="md:tw-mb-10 tw-text-base">
+      <p class="tw-mb-5 md:tw-mb-10 tw-text-base">
         ดัชนีเทคโนโลยีดิจิทัลด้านเกษตรอาหารที่มีผลต่อคุณค่าที่ผู้บริโภครับรู้และความตั้งใจซื้อ
       </p>
       <NuxtLink to="/Login" class="tw-flex tw-justify-end">
         <v-btn rounded="xl" size="x-large" color="#00ABF5" class="tw-hidden md:tw-block tw-w-40" v-if="!user.getUserData">Login</v-btn>
+        <v-btn rounded="xl" color="#00ABF5" class="md:tw-hidden tw-block tw-w-32" v-if="!user.getUserData">Login</v-btn>
       </NuxtLink>
     </div>
     <div>
@@ -52,11 +53,11 @@
         ตัวชี้วัด
       </p>
       <div class=" tw-text-white tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-5 md:tw-gap-10 tw-px-5 md:tw-px-10 tw-mt-10 md:tw-mt-12">
-        <IndexCard index="01" title="Blockchain food traceability and certification technology" image="/landing-31.png" />
-        <IndexCard index="02" title="Smart packaging technology" image="/landing-32.png" />
-        <IndexCard index="03" title="IoT sensor in quality and safety control technology" image="/landing-33.png" />
+        <IndexCard index="01" title="Traceability and Certification Technology" image="/landing-31.png" />
+        <IndexCard index="02" title="Smart Packaging Technology" image="/landing-32.png" />
+        <IndexCard index="03" title="IoT Sensor in Quality and Safety Control Technology" image="/landing-33.png" />
         <IndexCard index="04" title="Agrifood
-        E-Commerce technology" image="/landing-34.png" />
+        E-Commerce Technology" image="/landing-34.png" />
       </div>
     </div>
 
@@ -67,10 +68,10 @@
     <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-8 md:tw-gap-14 tw-items-center">
       <div>
         <p class="tw-text-2xl md:tw-text-3xl tw-font-semibold tw-text-[#0F665C] tw-mb-1">
-          เทคโนโลยีบล็อกเชนที่ใช้ในการตรวจสอบย้อนกลับ และการรับรองมาตรฐาน
+          เทคโนโลยีการตรวจสอบย้อนกลับและการรับรองมาตรฐาน
         </p>
-        <p class="tw-capitalize tw-tracking-wider tw-text-base md:tw-text-lg tw-font-medium tw-text-[#268D49]">
-          (Blockchain food traceability and certification technology)
+        <p class="tw-tracking-wider tw-text-base md:tw-text-lg tw-font-medium tw-text-[#268D49]">
+          (Traceability and Certification Technology)
         </p>
         <p class="tw-text-lg md:tw-text-xl tw-text-black tw-mt-4">
           เทคโนโลยีที่เป็นระบบในการติดตามที่มาของผลไม้สดในการไปใช้เพื่อการบริโภค ตลอดทุกขั้นตอนของการผลิต การแปรรูป และการจัดจำหน่ายที่ผ่านการรับรองตามมาตรฐานสากลทางอาหาร
@@ -84,7 +85,7 @@
   <div class="tw-py-10 tw-px-5 md:tw-py-16 md:tw-px-12 tw-bg-[#006B18]">
     <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-8 md:tw-gap-14 tw-items-center">
       <img src="/landing-5.png" class="tw-rounded-3xl">
-      <div class="md:tw-text-right">
+      <div>
         <p class="tw-text-2xl md:tw-text-3xl tw-font-semibold tw-text-[#C2E829] tw-mb-1">
           เทคโนโลยีบรรจุภัณฑ์สมาร์ท
         </p>
@@ -106,8 +107,8 @@
         <p class="tw-text-2xl md:tw-text-3xl tw-font-semibold tw-text-[#0F665C] tw-mb-1">
           เทคโนโลยีไอโอทีเซ็นเซอร์ในการควบคุมคุณภาพและความปลอดภัย
         </p>
-        <p class="tw-capitalize tw-tracking-wider tw-text-base md:tw-text-lg tw-font-medium tw-text-[#268D49]">
-          (IoT sensor in quality and safety control technology)
+        <p class="tw-tracking-wider tw-text-base md:tw-text-lg tw-font-medium tw-text-[#268D49]">
+          (IoT Sensor in Quality and Safety Control Technology)
         </p>
         <p class="tw-text-lg md:tw-text-xl tw-text-black tw-mt-4">
           เทคโนโลยีด้านเซนเซอร์ที่ใช้ควบคุมคุณภาพและความปลอดภัยของผลไม้สดในแต่ละห่วงโซ่อุปทาน ตั้งแต่แหล่งผลิตจนถึงจุดขายผ่านเครือข่ายอินเตอร์เน็ต
@@ -121,7 +122,7 @@
   <div class="tw-py-10 tw-px-5 md:tw-py-16 md:tw-px-12 tw-bg-[#507F13]">
     <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-8 md:tw-gap-14 tw-items-center">
       <img src="/landing-7.png" class="tw-rounded-3xl">
-      <div class="md:tw-text-right">
+      <div>
         <p class="tw-text-2xl md:tw-text-3xl tw-font-semibold tw-text-[#C2E829] tw-mb-1">
           เทคโนโลยีการซื้อขายผลไม้ผ่านระบบพาณิชย์อิเล็กทรอนิกส์
         </p>
@@ -140,18 +141,22 @@
   <!-- Page 8 -->
   <div class="tw-py-10 tw-px-5 md:tw-py-16 md:tw-px-12">
     <p class="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-center tw-text-[#0F665C] tw-tracking-widest tw-uppercase">
-      customer testimonial
+      customer testimonials
     </p>
-    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6 md:tw-gap-10 tw-mt-10 tw-h-[590px] md:tw-h-96">
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6 md:tw-gap-10 tw-mt-10 tw-h-[700px] md:tw-h-[500px]">
       <Testimonial
         text="หลังการประเมิน DigiFruit Index
             และการได้รับคำแนะนำจากที่ปรึกษามืออาชีพ
             สินค้าของเราขายได้มากขึ้นด้วยราคาที่สูงขึ้น
             ดีใจมากค่ะ"
+        subtext="คุณดาว เจ้าของสวนมะม่วง organic
+                อำเภอบางแพร จังหวดราชบุรี"
         image="/testimonial-1.png"
       />
       <Testimonial
-        text="พอรู้ว่าเราจะเอาเทคโนโลยีมาใช้อย่างไร ผ่านการแนะนำจากทีมงานทำให้เราตีตลาดกลุ่มเฉพาะได้มากขึ้น เพราะลูกค้าให้ความสำคัญกับสิ่งนี้ และพร้อมจะจ่ายเงินเพิ่มกับผลไม้ของเรา"
+        text="พอรู้ว่าเราจะเอาเทคโนโลยีมาใช้อย่างไร ผ่านการแนะนำจากที่ปรึกษาทำให้เราตีตลาดกลุ่มเฉพาะได้มากขึ้น เพราะลูกค้าให้ความสำคัญกับสิ่งนี้ และพร้อมจะจ่ายเงินเพิ่มกับผลไม้ของเรา"
+        subtext="คุณส้ม ผู้ประกอบการแปรรูปผลไม้สดเพื่อส่งออก
+                อำเภอแม่สวย จังหวัดเชียงราย"
         image="/testimonial-2.png"
       />
     </div>

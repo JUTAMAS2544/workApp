@@ -5,14 +5,13 @@
       <div
         class="tw-col-span-3 md:tw-col-span-4 tw-bg-[#F1F1F1] tw-p-3 md:tw-p-6"
       >
-        <p class="tw-text-xs md:tw-text-lg tw-font-semibold">
+        <p class="tw-text-xs md:tw-text-2xl tw-font-semibold">
           ดัชนีเทคโนโลยีดิจิทัลด้านเกษตรอาหารที่มีผลต่อคุณค่าที่ผู้บริโภครับรู้และความตั้งใจซื้อ
         </p>
         <p
-          class="tw-text-[#0F665C] tw-text-[10px] md:tw-text-base tw-font-semibold tw-mt-2"
+          class="tw-text-[#0F665C] tw-text-[10px] md:tw-text-xl tw-font-semibold tw-mt-2"
         >
-          Index of digital agrifood technologies influencing on consumer
-          perceived value and purchase intention
+          Index of Digital Agrifood Technologies Influencing on Consumer Perceived Value and Purchase Intention
         </p>
       </div>
       <div
@@ -104,7 +103,7 @@ watchEffect(async () => {
     data.value = [
       {
         id: 1,
-        nameTH: "ระดับการประยุกต์ใช้เทคโนโลยีการตรวจสอบย้อนกลับและการรับรอง",
+        nameTH: "ระดับการประยุกต์ใช้เทคโนโลยีการตรวจสอบย้อนกลับและการรับรองมาตรฐาน",
         nameEN: "Traceability and Certification Adoption",
         value: 0,
       },
@@ -192,7 +191,7 @@ watchEffect(async () => {
     data.value = [
       {
         id: 1,
-        nameTH: "ระดับการประยุกต์ใช้เทคโนโลยีการตรวจสอบย้อนกลับและการรับรอง",
+        nameTH: "ระดับการประยุกต์ใช้เทคโนโลยีการตรวจสอบย้อนกลับและการรับรองมาตรฐาน",
         nameEN: "Traceability and Certification Adoption",
         value: score.getSummary.tc_4,
       },

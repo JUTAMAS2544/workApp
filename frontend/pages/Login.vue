@@ -162,12 +162,14 @@ const onSubmit = handleSubmit(async values => {
 
   isLoading.value = true;
   await user.fetchLogin(params);
-  await user.fetchAuth();
-  isLoading.value = false;
-
-  if (user.getAuthToken) {
-    navigateTo("/Assessment/PageStart");
+  if (user.getAuthToken  !== "error") {
+    await user.fetchAuth();
   }
+  isLoading.value = false;
+  navigateTo("/Assessment/PageStart");
+  // if (user.getAuthToken) {
+  //   navigateTo("/Assessment/PageStart");
+  // }
 })
 const handleChangePassword = handleSubmit(async values => {
 

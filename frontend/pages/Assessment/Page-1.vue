@@ -102,8 +102,8 @@
           <p class="md:tw-text-xl tw-font-semibold tw-mb-2">คุณยืนยันที่จะออกจากหน้านี้ใช่หรือไม่ ?</p>
           <p class="tw-text-xs md:tw-text-base tw-text-[#FF5353]">หากออกจากหน้านี้ ระบบจะไม่ทำการบันทึกคำตอบของคุณ</p>
           <div class="tw-mt-8 tw-grid tw-grid-cols-2 tw-gap-x-6">
-            <v-btn rounded="xl" size="large" color="#E60000" block @click="menu.setShowChangePage(false)">Cancel</v-btn>
-            <v-btn rounded="xl" size="large" color="#5BCE00" block class="tw-text-white" @click="handleCheckPage">ok</v-btn>
+            <v-btn rounded="xl" size="large" color="#E60000" @click="menu.setShowChangePage(false)">Cancel</v-btn>
+            <v-btn rounded="xl" size="large" color="#5BCE00" class="tw-text-white" @click="handleCheckPage">ok</v-btn>
           </div>
         </v-card-text>
       </v-card>
@@ -136,8 +136,8 @@ const answers = ref<SendType[]>()
 
 const dataDetail = [
   {
-    titleTH: 'เทคโนโลยีบล็อกเชนที่ใช้ในการตรวจสอบย้อนกลับและการรับรองมาตรฐาน',
-    titleEN: '(Blockchain food traceability and certification technology)',
+    titleTH: 'เทคโนโลยีการตรวจสอบย้อนกลับและการรับรองมาตรฐาน',
+    titleEN: '(Traceability and Certification Technology)',
     image: '/p1.png',
     detail: 'เทคโนโลยีที่เป็นระบบในการติดตามที่มาของผลไม้สดในการไปใช้เพื่อการบริโภค\nตลอดทุกขั้นตอนของการผลิต การแปรรูป และการจัดจำหน่ายที่ผ่านการรับรอง\nตามมาตรฐานสากลทางอาหาร'
   },

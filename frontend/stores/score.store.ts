@@ -196,7 +196,7 @@ export const useScore = defineStore('score', () => {
       score.value = data
 
     } catch (err) {
-      console.log(err)
+      console.log("test ", err)
     }
   }
   const sendScore = async (playload: SendType[]) => {

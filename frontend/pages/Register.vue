@@ -69,21 +69,24 @@
                 </div>
                 <v-select
                   class="tw-mt-2"
+                  v-model="type_sme.value.value"
+                  label="ประเภทของ SMEs ใด ที่ท่านเคยมีประสบการณ์ทั้งทางตรงและทางอ้อม (ตอบได้มากกว่า 1 ข้อ)"
+                  hint="(หมายเหตุ: ทางตรงเป็นผู้ประกอบการโดยตรง ทางอ้อมเป็นผูสนับสนุนเชิงนโยบาย เช่น ภาครัฐ ภาคเอกชน)"
+                  density="comfortable"
+                  variant="outlined"
+                  multiple
+                  persistent-hint
+                  :items="data[6]"
+                  :error-messages="type_sme.errorMessage.value"
+                ></v-select>
+                <v-select
+                  class="tw-mt-8"
                   v-model="working_period_agrofood.value.value"
                   label="ระยะเวลาที่ทำงาน (ปี) ในภาคผู้ประกอบการขนาดกลางและขนาดย่อม (SME) ด้านเกษตรอาหาร"
                   density="comfortable"
                   variant="outlined"
                   :items="data[5]"
                   :error-messages="working_period_agrofood.errorMessage.value"
-                ></v-select>
-                <v-select
-                  class="tw-mt-2"
-                  v-model="type_sme.value.value"
-                  label="ประเภทของ SMEs ใด ที่ท่านเคยมีประสบการณ์"
-                  density="comfortable"
-                  variant="outlined"
-                  :items="data[6]"
-                  :error-messages="type_sme.errorMessage.value"
                 ></v-select>
                 <v-select
                   class="tw-mt-2"
@@ -162,7 +165,7 @@
 
                 <p class="tw-mt-10 tw-mb-3 tw-text-base">
                   1. ชนิดผลไม้สดใดที่เกี่ยวข้องกับธุรกิจหรืองานของท่าน
-                  (กรุณาเลือก 3 ข้อ)
+                  (ตอบได้มากกว่า 1 ข้อ)
                 </p>
                 <v-select
                   class="tw-mt-2"
@@ -301,16 +304,16 @@ const data = {
     "50-59 ปี",
     "60 ปีขึ้นไป",
   ],
-  2: ["โสด", "สมรส", "อื่น ๆ (โปรดระบุ).........................."],
+  2: ["โสด", "สมรส", "อื่น ๆ"],
   3: ["ต่ำกว่าปริญญาตรี", "ปริญญาตรี", "ปริญญาโทหรือสูงกว่า"],
   4: [
     "ผู้ประกอบการ",
     "ข้าราชการ/พนักงานรัฐวิสาหกิจ",
     "พนักงานบริษัทเอกชน",
     "อาชีพอิสระ",
-    "อื่น ๆ (โปรดระบุ).........................",
+    "อื่น ๆ",
   ],
-  5: ["1-3 ปี", "3-5 ปี", "5-7 ปี", "8-10 ปี", "มากกว่า 10 ปีขึ้นไป"],
+  5: ["1-3 ปี", "4-6 ปี", "7-9 ปี", "มากกว่า 10 ปีขึ้นไป"],
   6: [
     "ภาคเกษตรกรรม",
     "ภาคอุตสาหกรรมเกษตรแปรรูป",
@@ -318,16 +321,16 @@ const data = {
     "ภาคการค้าปลีก/ส่งสินค้าเกษตรแปรรูป",
     "ภาคขนส่งสินค้าเกษตร",
     "ภาคขนส่งสินค้าเกษตรแปรรูป",
-    "อื่น ๆ (โปรดระบุ)............................",
+    "อื่น ๆ",
   ],
-  7: ["1-3 ปี", "3-5 ปี", "5-7 ปี", "8-10 ปี", "มากกว่า 10 ปีขึ้นไป"],
+  7: ["1-3 ปี", "4-6 ปี", "7-9 ปี", "มากกว่า 10 ปีขึ้นไป"],
   8: [
-    "1-20 คน",
-    "30-50 คน",
-    "50-70 คน",
-    "70-100 คน",
-    "100-150 คน",
-    "150-200 คน",
+    "น้อยกว่า 30 คน",
+    "31-50 คน",
+    "51-70 คน",
+    "71-100 คน",
+    "101-150 คน",
+    "151-200 คน",
     "200 คนขึ้นไป",
   ],
   9: [
@@ -351,7 +354,7 @@ const data = {
     "ลองกอง",
     "ขนุน",
     "ผลไม้กลุ่มเบอรี่",
-    "อื่น ๆ (โปรดระบุ).........................",
+    "อื่น ๆ",
   ],
   10: [
     "ห้างค้าปลีก/ส่ง",
@@ -359,7 +362,8 @@ const data = {
     "ร้านค้าทั่วไป",
     "ขายจากแปลงปลูกโดยตรง",
     "ร้านค้าออนไลน์",
-    "อื่น ๆ (โปรดระบุ)............................",
+    "ส่งออกต่างประเทศ",
+    "อื่น ๆ",
   ],
   11: [
     "เทคโนโลยีการตรวจสอบย้อนกลับและการรับรองมาตรฐาน",
@@ -430,8 +434,8 @@ const { handleSubmit } = useForm({
       if (!next.value && validate.isRequired(value)) return validate.isRequired(value)
       return true
     },
-    type_sme (value: string) {
-      if (!next.value && validate.isRequired(value)) return validate.isRequired(value)
+    type_sme (value: string[]) {
+      if (!next.value && !value) return 'ต้องกรอก'
       return true
     },
     working_period (value: string) {
@@ -444,8 +448,6 @@ const { handleSubmit } = useForm({
     },
     answer_1 (value: string[]) {
       if (next.value && !value) return 'ต้องกรอก'
-      if (next.value && value.length < 3) return 'คำตอบของคุณ น้อยกว่า 3 ข้อ'
-      if (next.value && value.length > 3) return 'คำตอบของคุณ มากกว่า 3 ข้อ'
       return true
     },
     answer_2 (value: string[]) {
@@ -476,7 +478,7 @@ const status = useField<string | null>('status')
 const education_level = useField<string | null>('education_level')
 const occupation = useField<string | null>('occupation')
 const working_period_agrofood = useField<string | null>('working_period_agrofood')
-const type_sme = useField<string | null>('type_sme')
+const type_sme = useField<string[] | null>('type_sme')
 const working_period = useField<string | null>('working_period')
 const num_personnel = useField<string | null>('num_personnel')
 const email = useField('email')
@@ -500,7 +502,7 @@ const onSubmit = handleSubmit(async values => {
     education_level: values.education_level,
     occupation: values.occupation,
     working_period_agrofood: values.working_period_agrofood,
-    type_sme: values.type_sme,
+    type_sme: values.type_sme.toString(),
     working_period: values.working_period,
     num_personnel: values.num_personnel,
     answer_1: values.answer_1.toString(),
@@ -511,8 +513,9 @@ const onSubmit = handleSubmit(async values => {
     answer_6: values.answer_6
   }
   await user.fetchRegister(params)
-  alert("Create Account successful")
-  navigateTo('/Login')
+  if (user.getRegister && user.getRegister.status === "ok") {
+    navigateTo('/Login')
+  }
 })
 
 const onNext = handleSubmit(values => {
